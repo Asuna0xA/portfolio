@@ -1,6 +1,6 @@
 # 🔓 asuna 0xA
 
-> _the system wasn't broken. it was designed that way._
+> i exploit what others call features
 
 systems thinker. code whisperer. ghost-tier hacker.
 
