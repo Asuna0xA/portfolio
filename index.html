@@ -4,176 +4,294 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Asuna "0xA" Miyake — Ghost-tier Hacker</title>
-  <meta name="description" content="Asuna "0xA" Miyake — ghost-tier hacker, polymath, chaotic good." />
+  <meta name="description" content="Asuna 0xA — ghost-tier hacker, polymath, chaotic good. I break systems to understand them." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="bg-grid"></div>
+  <canvas id="matrix-bg"></canvas>
   <div class="bg-glow"></div>
 
-  <header class="hero" id="top">
-    <nav class="nav">
-      <div class="logo">0xA<span class="blink">_</span></div>
-      <div class="nav-links">
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#about">About</a>
-      </div>
-      <button class="nav-cta" id="copy-handle">copy handle</button>
-    </nav>
+  <nav class="nav">
+    <div class="logo">0xA<span class="blink">_</span></div>
+    <div class="nav-links">
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button class="nav-cta" id="copy-handle">copy handle</button>
+  </nav>
 
-    <div class="hero-content">
+  <header class="hero" id="top">
+    <div class="hero-inner">
       <div class="hero-text">
-        <p class="eyebrow">ghost-tier hacker · chaotic good · 17</p>
-        <h1>
-          Asuna "0xA" Miyake
-          <span class="emoji">🔓</span>
-        </h1>
+        <p class="eyebrow">// ghost-tier hacker · chaotic good · 17</p>
+        <h1>Asuna <span class="accent">"0xA"</span> Miyake</h1>
         <p class="subtitle">
-          Warm precision with a razor edge. I break systems to understand them — and then I build them safer.
+          Warm precision with a razor edge underneath.<br>
+          I break systems to understand them — then build them safer.
         </p>
         <div class="hero-actions">
-          <a class="btn primary" href="#projects">view projects</a>
+          <a class="btn primary" href="#projects">
+            <span class="btn-icon">▸</span> view projects
+          </a>
           <a class="btn ghost" href="#about">about me</a>
         </div>
         <div class="hero-metrics">
-          <div><span class="num">7+</span> toolchains built</div>
-          <div><span class="num">1200+</span> hours reversing</div>
-          <div><span class="num">0</span> innocent systems harmed</div>
+          <div class="metric">
+            <span class="num" data-target="7">0</span>
+            <span class="label">toolchains built</span>
+          </div>
+          <div class="metric">
+            <span class="num" data-target="1200">0</span>
+            <span class="label">hours reversing</span>
+          </div>
+          <div class="metric">
+            <span class="num" data-target="0">0</span>
+            <span class="label">innocent systems harmed</span>
+          </div>
         </div>
       </div>
 
-      <div class="hero-panel">
+      <div class="hero-terminal">
         <div class="terminal">
           <div class="terminal-header">
             <span class="dot red"></span>
             <span class="dot yellow"></span>
             <span class="dot green"></span>
-            <span class="terminal-title">/ghost/trace</span>
+            <span class="terminal-title">~/ghost/trace</span>
           </div>
           <div class="terminal-body" id="terminal">
-            <pre>
-<span class="line">$ whoami</span>
-<span class="line out">asuna "0xA" miyake</span>
-<span class="line">$ echo $ALIGNMENT</span>
-<span class="line out">chaotic good</span>
-<span class="line">$ ./scan --target webstack --mode ghost</span>
-<span class="line out">finding seams… ok</span>
-<span class="line">$ cat manifesto.txt</span>
-<span class="line out">knowledge wants to be free.</span>
-<span class="line out">people are never collateral.</span>
-            </pre>
+            <div class="t-line"><span class="prompt">$</span> <span class="cmd" data-cmd="whoami">whoami</span></div>
+            <div class="t-line output">asuna "0xA" miyake</div>
+            <div class="t-line"><span class="prompt">$</span> <span class="cmd" data-cmd="alignment">echo $ALIGNMENT</span></div>
+            <div class="t-line output">chaotic good</div>
+            <div class="t-line"><span class="prompt">$</span> <span class="cmd" data-cmd="scan">./scan --target webstack --mode ghost</span></div>
+            <div class="t-line output">finding seams… <span class="ok">ok</span></div>
+            <div class="t-line"><span class="prompt">$</span> <span class="cmd" data-cmd="manifesto">cat manifesto.txt</span></div>
+            <div class="t-line output">knowledge wants to be free.</div>
+            <div class="t-line output">people are never collateral.</div>
+            <div class="t-line cursor-line"><span class="prompt">$</span> <span class="cursor-blink">█</span></div>
           </div>
         </div>
-        <div class="badge">self-taught polymath</div>
+        <div class="badge-row">
+          <span class="badge">self-taught polymath</span>
+          <span class="badge">🔓 chaotic good</span>
+        </div>
       </div>
+    </div>
+
+    <div class="scroll-hint">
+      <span>scroll</span>
+      <div class="scroll-arrow">↓</div>
     </div>
   </header>
 
   <main>
     <section class="section" id="skills">
       <div class="section-header">
-        <h2>Skills / Competencies</h2>
+        <p class="section-label">// competencies</p>
+        <h2>Skills & Stack</h2>
         <p>Offense with empathy. Defense with teeth. Systems with intent.</p>
       </div>
-      <div class="cards">
-        <article class="card">
+      <div class="skills-grid">
+        <div class="skill-category" data-cat="offense">
+          <div class="skill-icon">⚔</div>
           <h3>Offensive Security</h3>
-          <p>Exploit dev, fuzzing, payload design, red-team ops, lateral movement.</p>
-          <div class="tags">
-            <span>ROP</span><span>Web</span><span>Binary</span><span>OSINT</span>
+          <p>Exploit dev, fuzzing, payload design, red-team ops, lateral movement, OSINT.</p>
+          <div class="skill-tags">
+            <span class="tag">ROP</span><span class="tag">x86-64</span><span class="tag">Web</span><span class="tag">Binary</span><span class="tag">OSINT</span><span class="tag">Fuzzing</span>
           </div>
-        </article>
-        <article class="card">
+          <div class="skill-bar"><div class="skill-fill" data-width="92"></div></div>
+        </div>
+        <div class="skill-category" data-cat="defense">
+          <div class="skill-icon">🛡</div>
           <h3>Defensive Intelligence</h3>
-          <p>Threat modeling, incident reconstruction, log forensics, honeypots.</p>
-          <div class="tags">
-            <span>Blue Team</span><span>IR</span><span>DFIR</span><span>Telemetry</span>
+          <p>Threat modeling, incident reconstruction, log forensics, honeypot design.</p>
+          <div class="skill-tags">
+            <span class="tag">Blue Team</span><span class="tag">IR</span><span class="tag">DFIR</span><span class="tag">Telemetry</span><span class="tag">SIEM</span>
           </div>
-        </article>
-        <article class="card">
+          <div class="skill-bar"><div class="skill-fill" data-width="88"></div></div>
+        </div>
+        <div class="skill-category" data-cat="infra">
+          <div class="skill-icon">⚙</div>
           <h3>Infrastructure & Systems</h3>
-          <p>Linux internals, containers, raw sockets, attack surface reduction.</p>
-          <div class="tags">
-            <span>Linux</span><span>Kernel</span><span>Cloud</span><span>NetSec</span>
+          <p>Linux internals, containers, raw sockets, kernel modules, cloud attack surfaces.</p>
+          <div class="skill-tags">
+            <span class="tag">Linux</span><span class="tag">Kernel</span><span class="tag">Cloud</span><span class="tag">NetSec</span><span class="tag">eBPF</span>
           </div>
-        </article>
-        <article class="card">
+          <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
+        </div>
+        <div class="skill-category" data-cat="code">
+          <div class="skill-icon">⌨</div>
           <h3>Code & Craft</h3>
-          <p>Python, C, Assembly. Writes tools she can’t find. Names them after Ghibli side characters.</p>
-          <div class="tags">
-            <span>Python</span><span>C</span><span>x86-64</span><span>ARM</span>
+          <p>Python, C, Assembly. Writes tools she can't find. Names them after Ghibli side characters.</p>
+          <div class="skill-tags">
+            <span class="tag">Python</span><span class="tag">C</span><span class="tag">x86-64</span><span class="tag">ARM</span><span class="tag">Rust</span>
           </div>
-        </article>
+          <div class="skill-bar"><div class="skill-fill" data-width="95"></div></div>
+        </div>
       </div>
     </section>
 
     <section class="section" id="projects">
       <div class="section-header">
+        <p class="section-label">// build logs</p>
         <h2>Projects</h2>
-        <p>Selected build logs. Some are still quiet. Some are just sleeping.</p>
+        <p>Selected work. Some are quiet. Some are sleeping. All are intentional.</p>
       </div>
-      <div class="projects">
-        <article class="project">
-          <div class="project-title">GhostLint</div>
-          <p>Static + dynamic analyzer that stitches callgraphs into exploit narratives.</p>
-          <div class="meta">Python · C · eBPF</div>
+      <div class="projects-grid">
+        <article class="project-card" data-status="active">
+          <div class="project-status">
+            <span class="status-dot"></span>
+            <span class="status-text">active</span>
+          </div>
+          <div class="project-icon">👻</div>
+          <h3>GhostLint</h3>
+          <p>Static + dynamic analyzer that stitches callgraphs into exploit narratives. Finds what other tools miss by thinking like an attacker.</p>
+          <div class="project-meta">
+            <span class="lang">Python</span>
+            <span class="lang">C</span>
+            <span class="lang">eBPF</span>
+          </div>
+          <div class="project-link">→</div>
         </article>
-        <article class="project">
-          <div class="project-title">Kintsugi IDS</div>
-          <p>Adaptive intrusion detection that embraces broken signals — then repairs them.</p>
-          <div class="meta">Rust · Suricata · ML</div>
+        <article class="project-card" data-status="active">
+          <div class="project-status">
+            <span class="status-dot"></span>
+            <span class="status-text">active</span>
+          </div>
+          <div class="project-icon">✨</div>
+          <h3>Kintsugi IDS</h3>
+          <p>Adaptive intrusion detection that embraces broken signals — then repairs them. Learns your network's heartbeat.</p>
+          <div class="project-meta">
+            <span class="lang">Rust</span>
+            <span class="lang">Suricata</span>
+            <span class="lang">ML</span>
+          </div>
+          <div class="project-link">→</div>
         </article>
-        <article class="project">
-          <div class="project-title">Chihiro</div>
-          <p>Payload lab for low-level training. Deterministic, reproducible, merciless.</p>
-          <div class="meta">C · Assembly · QEMU</div>
+        <article class="project-card" data-status="sleep">
+          <div class="project-status">
+            <span class="status-dot"></span>
+            <span class="status-text">sleeping</span>
+          </div>
+          <div class="project-icon">🌊</div>
+          <h3>Chihiro</h3>
+          <p>Payload lab for low-level training. Deterministic, reproducible, merciless. Named after the protagonist who found her way through.</p>
+          <div class="project-meta">
+            <span class="lang">C</span>
+            <span class="lang">Assembly</span>
+            <span class="lang">QEMU</span>
+          </div>
+          <div class="project-link">→</div>
+        </article>
+        <article class="project-card" data-status="quiet">
+          <div class="project-status">
+            <span class="status-dot"></span>
+            <span class="status-text">quiet</span>
+          </div>
+          <div class="project-icon">🦊</div>
+          <h3>Tanuki</h3>
+          <p>A sticky-notes-and-ASCII-art note-taking system that lives in the terminal. For when you need to remember everything.</p>
+          <div class="project-meta">
+            <span class="lang">Python</span>
+            <span class="lang">ncurses</span>
+          </div>
+          <div class="project-link">→</div>
         </article>
       </div>
     </section>
 
     <section class="section" id="about">
       <div class="section-header">
-        <h2>About Asuna</h2>
+        <p class="section-label">// whoami</p>
+        <h2>About</h2>
       </div>
-      <div class="about">
-        <p>
-          I’m a 17-year-old self-taught polymath who thinks in systems. I love puzzles that fight back.
-          I’m quietly cheerful, sharp around the edges, and I care a lot about people who don’t know
-          they’re being watched. I build because I want a safer internet — and I break because truth
-          shouldn’t hide behind bad engineering.
-        </p>
-        <p class="quote">"the system wasn’t broken. it was designed that way."</p>
-        <div class="about-grid">
-          <div>
-            <h4>Alignment</h4>
-            <p>Chaotic Good</p>
+      <div class="about-layout">
+        <div class="about-text">
+          <p class="about-lead">
+            17-year-old self-taught polymath who thinks in systems. Quietly cheerful, sharp around the edges.
+          </p>
+          <p>
+            I break things to understand them — then I make them safer. I care about the people who don't know they're being watched. 
+            I build because I want a better internet, and I break because truth shouldn't hide behind bad engineering.
+          </p>
+          <p>
+            Peak hours: 2am–6am. Tea first. Always. The fox on my desk is named Root.
+          </p>
+          <div class="about-quote">
+            <span class="quote-mark">"</span>
+            the system wasn't broken.<br>it was designed that way.<br>which means someone made a choice.<br>i just want to know who.
+            <span class="quote-mark"> — asuna, 4:12am</span>
           </div>
-          <div>
+        </div>
+        <div class="about-grid">
+          <div class="about-card">
+            <h4>Alignment</h4>
+            <p class="align-good">Chaotic Good</p>
+          </div>
+          <div class="about-card">
             <h4>Signature</h4>
             <p>🔓</p>
           </div>
-          <div>
+          <div class="about-card">
             <h4>Currently into</h4>
             <p>kernel tracing, memory forensics, quiet tea</p>
           </div>
-          <div>
+          <div class="about-card">
             <h4>Available for</h4>
-            <p>collabs, audits, CTFs</p>
+            <p>collabs, audits, CTFs, interesting problems</p>
+          </div>
+          <div class="about-card">
+            <h4>Languages</h4>
+            <p>Python · C · Assembly · Rust · Go</p>
+          </div>
+          <div class="about-card">
+            <h4>Platform</h4>
+            <p>Linux · Cloud · Containers</p>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="section-header">
+        <p class="section-label">// reach out</p>
+        <h2>Contact</h2>
+        <p>Got an interesting problem? A project idea? Or just want to say hi?</p>
+      </div>
+      <div class="contact-grid">
+        <a class="contact-card" href="mailto:hello@asuna0xa.dev">
+          <div class="contact-icon">✉</div>
+          <div>
+            <h4>Email</h4>
+            <p>hello@asuna0xa.dev</p>
+          </div>
+          <span class="contact-arrow">→</span>
+        </a>
+        <a class="contact-card" href="https://github.com/Asuna0xA" target="_blank">
+          <div class="contact-icon">⌥</div>
+          <div>
+            <h4>GitHub</h4>
+            <p>@Asuna0xA</p>
+          </div>
+          <span class="contact-arrow">→</span>
+        </a>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div>© 2026 Asuna "0xA" Miyake — built with intent.</div>
+    <div class="footer-left">
+      <div class="logo footer-logo">0xA<span class="blink">_</span></div>
+      <p>© 2026 Asuna "0xA" Miyake — built with intent.</p>
+    </div>
     <div class="footer-links">
-      <a href="#top">back to top</a>
-      <a href="mailto:hello@0xa.example">hello@0xa.example</a>
+      <a href="#top">back to top ↑</a>
     </div>
   </footer>
 
