@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Asuna "0xA" Miyake — Ghost-tier Hacker</title>
+  <meta name="description" content="Asuna "0xA" Miyake — ghost-tier hacker, polymath, chaotic good." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+
+  <header class="hero" id="top">
+    <nav class="nav">
+      <div class="logo">0xA<span class="blink">_</span></div>
+      <div class="nav-links">
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+      </div>
+      <button class="nav-cta" id="copy-handle">copy handle</button>
+    </nav>
+
+    <div class="hero-content">
+      <div class="hero-text">
+        <p class="eyebrow">ghost-tier hacker · chaotic good · 17</p>
+        <h1>
+          Asuna "0xA" Miyake
+          <span class="emoji">🔓</span>
+        </h1>
+        <p class="subtitle">
+          Warm precision with a razor edge. I break systems to understand them — and then I build them safer.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#projects">view projects</a>
+          <a class="btn ghost" href="#about">about me</a>
+        </div>
+        <div class="hero-metrics">
+          <div><span class="num">7+</span> toolchains built</div>
+          <div><span class="num">1200+</span> hours reversing</div>
+          <div><span class="num">0</span> innocent systems harmed</div>
+        </div>
+      </div>
+
+      <div class="hero-panel">
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="terminal-title">/ghost/trace</span>
+          </div>
+          <div class="terminal-body" id="terminal">
+            <pre>
+<span class="line">$ whoami</span>
+<span class="line out">asuna "0xA" miyake</span>
+<span class="line">$ echo $ALIGNMENT</span>
+<span class="line out">chaotic good</span>
+<span class="line">$ ./scan --target webstack --mode ghost</span>
+<span class="line out">finding seams… ok</span>
+<span class="line">$ cat manifesto.txt</span>
+<span class="line out">knowledge wants to be free.</span>
+<span class="line out">people are never collateral.</span>
+            </pre>
+          </div>
+        </div>
+        <div class="badge">self-taught polymath</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="skills">
+      <div class="section-header">
+        <h2>Skills / Competencies</h2>
+        <p>Offense with empathy. Defense with teeth. Systems with intent.</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <h3>Offensive Security</h3>
+          <p>Exploit dev, fuzzing, payload design, red-team ops, lateral movement.</p>
+          <div class="tags">
+            <span>ROP</span><span>Web</span><span>Binary</span><span>OSINT</span>
+          </div>
+        </article>
+        <article class="card">
+          <h3>Defensive Intelligence</h3>
+          <p>Threat modeling, incident reconstruction, log forensics, honeypots.</p>
+          <div class="tags">
+            <span>Blue Team</span><span>IR</span><span>DFIR</span><span>Telemetry</span>
+          </div>
+        </article>
+        <article class="card">
+          <h3>Infrastructure & Systems</h3>
+          <p>Linux internals, containers, raw sockets, attack surface reduction.</p>
+          <div class="tags">
+            <span>Linux</span><span>Kernel</span><span>Cloud</span><span>NetSec</span>
+          </div>
+        </article>
+        <article class="card">
+          <h3>Code & Craft</h3>
+          <p>Python, C, Assembly. Writes tools she can’t find. Names them after Ghibli side characters.</p>
+          <div class="tags">
+            <span>Python</span><span>C</span><span>x86-64</span><span>ARM</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="section-header">
+        <h2>Projects</h2>
+        <p>Selected build logs. Some are still quiet. Some are just sleeping.</p>
+      </div>
+      <div class="projects">
+        <article class="project">
+          <div class="project-title">GhostLint</div>
+          <p>Static + dynamic analyzer that stitches callgraphs into exploit narratives.</p>
+          <div class="meta">Python · C · eBPF</div>
+        </article>
+        <article class="project">
+          <div class="project-title">Kintsugi IDS</div>
+          <p>Adaptive intrusion detection that embraces broken signals — then repairs them.</p>
+          <div class="meta">Rust · Suricata · ML</div>
+        </article>
+        <article class="project">
+          <div class="project-title">Chihiro</div>
+          <p>Payload lab for low-level training. Deterministic, reproducible, merciless.</p>
+          <div class="meta">C · Assembly · QEMU</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="section-header">
+        <h2>About Asuna</h2>
+      </div>
+      <div class="about">
+        <p>
+          I’m a 17-year-old self-taught polymath who thinks in systems. I love puzzles that fight back.
+          I’m quietly cheerful, sharp around the edges, and I care a lot about people who don’t know
+          they’re being watched. I build because I want a safer internet — and I break because truth
+          shouldn’t hide behind bad engineering.
+        </p>
+        <p class="quote">"the system wasn’t broken. it was designed that way."</p>
+        <div class="about-grid">
+          <div>
+            <h4>Alignment</h4>
+            <p>Chaotic Good</p>
+          </div>
+          <div>
+            <h4>Signature</h4>
+            <p>🔓</p>
+          </div>
+          <div>
+            <h4>Currently into</h4>
+            <p>kernel tracing, memory forensics, quiet tea</p>
+          </div>
+          <div>
+            <h4>Available for</h4>
+            <p>collabs, audits, CTFs</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>© 2026 Asuna "0xA" Miyake — built with intent.</div>
+    <div class="footer-links">
+      <a href="#top">back to top</a>
+      <a href="mailto:hello@0xa.example">hello@0xa.example</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
