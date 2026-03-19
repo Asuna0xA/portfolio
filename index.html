@@ -1,300 +1,1334 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Asuna "0xA" Miyake — Ghost-tier Hacker</title>
-  <meta name="description" content="Asuna 0xA — ghost-tier hacker, polymath, chaotic good. I break systems to understand them." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>☆ asuna.exe - hackergirl's lair ☆</title>
+  <meta name="description" content="asuna 0xA - 17yo hacker girl. pink hair, black heart, green terminal. welcome to my digital shrine~">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💀</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --pink: #ff6ec7;
+      --green: #00ff41;
+      --cyan: #00ffff;
+      --black: #000000;
+      --dark: #0a0a0a;
+      --pink-dim: rgba(255, 110, 199, 0.15);
+      --green-dim: rgba(0, 255, 65, 0.15);
+      --cyan-dim: rgba(0, 255, 255, 0.15);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'VT323', monospace;
+      background: var(--black);
+      color: var(--green);
+      min-height: 100vh;
+      overflow-x: hidden;
+      cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><text y="15" font-size="16">✧</text></svg>'), auto;
+    }
+
+    ::selection {
+      background: var(--pink);
+      color: var(--black);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--black);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--pink-dim);
+      border: 1px solid var(--pink);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--pink);
+    }
+
+    /* CRT Screen Effect Container */
+    .crt-container {
+      position: relative;
+      min-height: 100vh;
+    }
+
+    .crt-container::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(
+        transparent 50%,
+        rgba(0, 0, 0, 0.15) 50%
+      );
+      background-size: 100% 4px;
+      pointer-events: none;
+      z-index: 9999;
+      animation: scanlines 0.1s linear infinite;
+    }
+
+    .crt-container::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(
+        ellipse at center,
+        transparent 0%,
+        rgba(0, 0, 0, 0.4) 100%
+      );
+      pointer-events: none;
+      z-index: 9998;
+    }
+
+    @keyframes scanlines {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 4px; }
+    }
+
+    /* Falling ASCII Background */
+    #matrix-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    /* Glitch overlay */
+    .glitch-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9997;
+      opacity: 0;
+    }
+
+    .glitch-overlay.active {
+      animation: glitch-flash 0.3s ease-out;
+    }
+
+    @keyframes glitch-flash {
+      0% { opacity: 1; background: var(--pink); mix-blend-mode: overlay; }
+      25% { opacity: 0.8; background: var(--cyan); mix-blend-mode: difference; }
+      50% { opacity: 0.4; background: var(--green); mix-blend-mode: multiply; }
+      100% { opacity: 0; }
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 15px 30px;
+      background: linear-gradient(180deg, var(--black) 0%, transparent 100%);
+      border-bottom: 1px solid var(--pink-dim);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.1rem;
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      color: var(--pink);
+      text-shadow: 0 0 10px var(--pink), 0 0 20px var(--pink);
+      animation: flicker 3s infinite;
+      letter-spacing: 2px;
+    }
+
+    .logo:hover {
+      animation: glitch-text 0.5s infinite;
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      92% { opacity: 1; }
+      93% { opacity: 0.8; }
+      94% { opacity: 1; }
+      95% { opacity: 0.9; }
+      96% { opacity: 1; }
+    }
+
+    @keyframes glitch-text {
+      0% { text-shadow: 0 0 10px var(--pink), 0 0 20px var(--pink); transform: translate(0); }
+      20% { text-shadow: -3px 0 var(--cyan), 3px 0 var(--pink); transform: translate(-2px, 1px); }
+      40% { text-shadow: 3px 0 var(--green), -3px 0 var(--cyan); transform: translate(2px, -1px); }
+      60% { text-shadow: 0 0 10px var(--pink), 0 0 20px var(--pink); transform: translate(0); }
+      80% { text-shadow: -2px 0 var(--pink), 2px 0 var(--green); transform: translate(1px, 1px); }
+      100% { text-shadow: 0 0 10px var(--pink), 0 0 20px var(--pink); transform: translate(0); }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 5px;
+    }
+
+    .nav-links a {
+      color: var(--green);
+      text-decoration: none;
+      padding: 8px 15px;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .nav-links a::before {
+      content: '[';
+      margin-right: 2px;
+      color: var(--cyan);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a::after {
+      content: ']';
+      margin-left: 2px;
+      color: var(--cyan);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--pink);
+      text-shadow: 0 0 10px var(--pink);
+      border-color: var(--pink-dim);
+      background: var(--pink-dim);
+    }
+
+    .nav-links a:hover::before,
+    .nav-links a:hover::after {
+      opacity: 1;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 100px 20px 60px;
+      position: relative;
+    }
+
+    .ascii-art-container {
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .ascii-art {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: clamp(6px, 1.2vw, 14px);
+      line-height: 1.1;
+      color: var(--pink);
+      text-shadow: 0 0 5px var(--pink), 0 0 10px var(--pink);
+      white-space: pre;
+      text-align: center;
+      animation: breathe 4s ease-in-out infinite, float 6s ease-in-out infinite;
+    }
+
+    .ascii-art .hair {
+      color: var(--pink);
+      text-shadow: 0 0 8px var(--pink), 0 0 15px var(--pink);
+    }
+
+    .ascii-art .face {
+      color: var(--cyan);
+      text-shadow: 0 0 5px var(--cyan), 0 0 10px var(--cyan);
+    }
+
+    .ascii-art .eyes {
+      color: var(--green);
+      text-shadow: 0 0 8px var(--green), 0 0 15px var(--green);
+      animation: blink-eyes 4s infinite;
+    }
+
+    .ascii-art .mouth {
+      color: var(--pink);
+    }
+
+    .ascii-art .blush {
+      color: #ff69b4;
+      text-shadow: 0 0 5px #ff69b4;
+      opacity: 0.7;
+    }
+
+    .ascii-art .heart {
+      color: var(--pink);
+      animation: pulse-heart 1s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    @keyframes blink-eyes {
+      0%, 45%, 55%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    @keyframes pulse-heart {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.8; }
+    }
+
+    .hero-text {
+      text-align: center;
+      max-width: 600px;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: var(--cyan);
+      text-shadow: 0 0 10px var(--cyan), 0 0 20px var(--cyan), 0 0 30px var(--cyan);
+      margin-bottom: 15px;
+      animation: glitch-title 5s infinite;
+    }
+
+    .hero-title span {
+      color: var(--pink);
+    }
+
+    @keyframes glitch-title {
+      0%, 90%, 100% { transform: translate(0); filter: none; }
+      91% { transform: translate(-2px, 1px); filter: hue-rotate(90deg); }
+      92% { transform: translate(2px, -1px); filter: hue-rotate(-90deg); }
+      93% { transform: translate(0); filter: none; }
+    }
+
+    .hero-subtitle {
+      font-size: 1.3rem;
+      color: var(--green);
+      margin-bottom: 25px;
+      text-shadow: 0 0 5px var(--green);
+    }
+
+    .hero-info {
+      font-size: 1.1rem;
+      color: #666;
+      border: 1px dashed var(--pink-dim);
+      padding: 15px 25px;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .hero-info span {
+      color: var(--pink);
+    }
+
+    .status-line {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-size: 1rem;
+      margin-bottom: 30px;
+    }
+
+    .status-line .online {
+      color: var(--green);
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0.3; }
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--pink);
+      font-size: 1rem;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* Section Styling */
+    .section {
+      padding: 80px 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .section-header {
+      margin-bottom: 40px;
+      border-bottom: 2px solid var(--pink-dim);
+      padding-bottom: 15px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      color: var(--pink);
+      text-shadow: 0 0 10px var(--pink);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .section-title::before {
+      content: '>';
+      color: var(--green);
+      animation: blink 1s infinite;
+    }
+
+    .section-title::after {
+      content: '_';
+      color: var(--cyan);
+      animation: blink 0.7s infinite;
+    }
+
+    /* Skills - Terminal Style */
+    .terminal-block {
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid var(--green-dim);
+      padding: 20px;
+      font-family: 'Share Tech Mono', monospace;
+      position: relative;
+    }
+
+    .terminal-block::before {
+      content: '┌─ SKILLS.EXE';
+      position: absolute;
+      top: -12px;
+      left: 10px;
+      background: var(--black);
+      padding: 0 10px;
+      color: var(--pink);
+      font-size: 0.9rem;
+    }
+
+    .terminal-block::after {
+      content: '└────────────────────────────────────────────────────────';
+      position: absolute;
+      bottom: -12px;
+      left: 10px;
+      background: var(--black);
+      padding: 0 10px;
+      color: var(--pink);
+      font-size: 0.9rem;
+    }
+
+    .cmd-line {
+      margin-bottom: 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .cmd-prompt {
+      color: var(--green);
+      flex-shrink: 0;
+    }
+
+    .cmd-text {
+      color: var(--cyan);
+    }
+
+    .cmd-output {
+      color: #888;
+      padding-left: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .cmd-output .tag {
+      background: var(--green-dim);
+      border: 1px solid var(--green);
+      padding: 3px 10px;
+      font-size: 0.9rem;
+      color: var(--green);
+      transition: all 0.2s;
+    }
+
+    .cmd-output .tag:hover {
+      background: var(--green);
+      color: var(--black);
+      cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><text y="15" font-size="16">✧</text></svg>'), auto;
+    }
+
+    .cmd-output .tag.pink {
+      background: var(--pink-dim);
+      border-color: var(--pink);
+      color: var(--pink);
+    }
+
+    .cmd-output .tag.pink:hover {
+      background: var(--pink);
+      color: var(--black);
+    }
+
+    /* Projects - File Listing Style */
+    .file-listing {
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid var(--cyan-dim);
+      padding: 20px;
+      font-family: 'Share Tech Mono', monospace;
+      position: relative;
+    }
+
+    .file-listing::before {
+      content: 'C:\\PROJECTS\\MY_STUFF';
+      position: absolute;
+      top: -12px;
+      left: 10px;
+      background: var(--black);
+      padding: 0 10px;
+      color: var(--cyan);
+      font-size: 0.9rem;
+    }
+
+    .file-header {
+      color: #555;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed #333;
+    }
+
+    .file-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 15px;
+      padding: 12px 10px;
+      border-bottom: 1px dotted #222;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .file-item:hover {
+      background: var(--pink-dim);
+      border-color: var(--pink);
+    }
+
+    .file-icon {
+      color: var(--pink);
+    }
+
+    .file-name {
+      color: var(--cyan);
+      transition: color 0.2s;
+    }
+
+    .file-item:hover .file-name {
+      color: var(--pink);
+      text-shadow: 0 0 5px var(--pink);
+    }
+
+    .file-size {
+      color: #555;
+      font-size: 0.85rem;
+    }
+
+    .file-desc {
+      grid-column: 2 / -1;
+      color: #666;
+      font-size: 0.9rem;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .file-item:hover .file-desc {
+      display: block;
+    }
+
+    .file-tags {
+      grid-column: 2 / -1;
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .file-tag {
+      font-size: 0.8rem;
+      color: var(--green);
+      background: var(--green-dim);
+      padding: 2px 8px;
+    }
+
+    /* About - Diary Style */
+    .diary-container {
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid var(--pink-dim);
+      padding: 30px;
+      font-family: 'Share Tech Mono', monospace;
+      position: relative;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .diary-header {
+      text-align: center;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px dashed var(--pink-dim);
+    }
+
+    .diary-date {
+      color: var(--pink);
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+
+    .diary-weather {
+      color: var(--cyan);
+      font-size: 1.1rem;
+    }
+
+    .diary-entry {
+      color: var(--green);
+      line-height: 1.8;
+      font-size: 1.1rem;
+    }
+
+    .diary-entry p {
+      margin-bottom: 15px;
+      text-indent: 20px;
+    }
+
+    .diary-entry .signature {
+      text-align: right;
+      color: var(--pink);
+      margin-top: 20px;
+    }
+
+    .diary-doodles {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: var(--pink);
+      opacity: 0.3;
+      font-size: 1.5rem;
+      transform: rotate(15deg);
+    }
+
+    /* Contact - /msg Style */
+    .msg-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .msg-window {
+      background: rgba(0, 0, 0, 0.8);
+      border: 2px solid var(--cyan);
+      padding: 20px;
+      position: relative;
+    }
+
+    .msg-header {
+      color: var(--cyan);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--cyan-dim);
+      font-size: 1.1rem;
+    }
+
+    .msg-header span {
+      color: var(--pink);
+    }
+
+    .msg-item {
+      margin-bottom: 20px;
+      padding: 15px;
+      background: var(--cyan-dim);
+      border-left: 3px solid var(--cyan);
+      transition: all 0.2s;
+    }
+
+    .msg-item:hover {
+      background: var(--pink-dim);
+      border-color: var(--pink);
+      transform: translateX(5px);
+    }
+
+    .msg-cmd {
+      color: var(--green);
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .msg-cmd::before {
+      content: '/msg ';
+      color: var(--cyan);
+    }
+
+    .msg-info {
+      color: #888;
+      font-size: 0.95rem;
+    }
+
+    .msg-link {
+      color: var(--pink);
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .msg-link:hover {
+      text-shadow: 0 0 10px var(--pink);
+    }
+
+    .msg-arrow {
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: all 0.2s;
+    }
+
+    .msg-item:hover .msg-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid var(--pink-dim);
+      margin-top: 60px;
+    }
+
+    .footer-ascii {
+      font-family: 'Share Tech Mono', monospace;
+      color: var(--pink);
+      font-size: 0.7rem;
+      line-height: 1.2;
+      white-space: pre;
+      margin-bottom: 20px;
+      text-shadow: 0 0 5px var(--pink);
+      opacity: 0.7;
+    }
+
+    .footer-text {
+      color: #555;
+      font-size: 0.95rem;
+    }
+
+    .footer-text span {
+      color: var(--green);
+    }
+
+    .footer-hearts {
+      margin-top: 15px;
+      color: var(--pink);
+      animation: pulse-heart 1s ease-in-out infinite;
+    }
+
+    /* Random Glitch Decorations */
+    .glitch-deco {
+      position: fixed;
+      font-family: 'Share Tech Mono', monospace;
+      color: var(--pink);
+      opacity: 0.1;
+      font-size: 2rem;
+      pointer-events: none;
+      z-index: -1;
+      animation: glitch-float 20s linear infinite;
+    }
+
+    .glitch-deco:nth-child(1) { left: 5%; top: 20%; animation-delay: 0s; }
+    .glitch-deco:nth-child(2) { left: 90%; top: 40%; animation-delay: -5s; color: var(--cyan); }
+    .glitch-deco:nth-child(3) { left: 15%; top: 70%; animation-delay: -10s; color: var(--green); }
+    .glitch-deco:nth-child(4) { left: 85%; top: 80%; animation-delay: -15s; }
+
+    @keyframes glitch-float {
+      0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.1; }
+      50% { transform: translateY(-30px) rotate(5deg); opacity: 0.2; }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .ascii-art {
+        font-size: 4px;
+      }
+
+      .hero-title {
+        font-size: 1.8rem;
+      }
+
+      .section {
+        padding: 60px 15px;
+      }
+
+      .file-item {
+        grid-template-columns: auto 1fr;
+      }
+
+      .file-size {
+        display: none;
+      }
+    }
+
+    /* Random ambient effects */
+    @keyframes random-glitch {
+      0%, 100% { transform: translate(0); }
+      10% { transform: translate(-1px, 1px); }
+      20% { transform: translate(1px, -1px); }
+      30% { transform: translate(-1px, -1px); }
+      40% { transform: translate(1px, 1px); }
+      50% { transform: translate(0); }
+    }
+
+    .random-glitch {
+      animation: random-glitch 0.1s infinite;
+      animation-play-state: paused;
+    }
+
+    .random-glitch:hover {
+      animation-play-state: running;
+    }
+  </style>
 </head>
 <body>
-  <canvas id="matrix-bg"></canvas>
-  <div class="bg-glow"></div>
+  <div class="crt-container">
+    <!-- Matrix Rain Background -->
+    <canvas id="matrix-bg"></canvas>
+    
+    <!-- Glitch Flash Overlay -->
+    <div class="glitch-overlay" id="glitch-overlay"></div>
 
-  <nav class="nav">
-    <div class="logo">0xA<span class="blink">_</span></div>
-    <div class="nav-links">
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </div>
-    <button class="nav-cta" id="copy-handle">copy handle</button>
-  </nav>
+    <!-- Random Glitch Decorations -->
+    <div class="glitch-deco">死</div>
+    <div class="glitch-deco">☆</div>
+    <div class="glitch-deco">KYUTE</div>
+    <div class="glitch-deco">♥</div>
 
-  <header class="hero" id="top">
-    <div class="hero-inner">
+    <!-- Navigation -->
+    <nav class="nav">
+      <div class="logo">☆asuna.exe☆</div>
+      <div class="nav-links">
+        <a href="#hero">[home]</a>
+        <a href="#skills">[skills]</a>
+        <a href="#projects">[projects]</a>
+        <a href="#about">[diary]</a>
+        <a href="#contact">[msg]</a>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+      <div class="ascii-art-container">
+        <pre class="ascii-art" id="ascii-girl">
+<span class="hair">    ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</span>
+<span class="hair">  ▄█▀░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▀█▄</span>
+<span class="hair"> █▀</span><span class="face">░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░</span><span class="hair">▀█</span>
+<span class="hair"> █▀</span><span class="face">░░░░░░</span><span class="eyes">◉  ‿  ◉</span><span class="face">░░░░░░░░░░░░░░░░░░░░░░░░░░░</span><span class="hair">▀█</span>
+<span class="hair"> █</span><span class="face">░░░░░░░░░░</span><span class="blush">≋</span><span class="blush">≋</span><span class="face">░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░</span><span class="hair">█</span>
+<span class="hair"> █</span><span class="face">░░░░░░░░░░░░░</span><span class="mouth">︵‿</span><span class="face">░░░░░░░░░░░░░░░░░░░░░░░░░░░░░</span><span class="hair">█</span>
+<span class="hair"> █▄</span><span class="face">░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░</span><span class="hair">▄█</span>
+<span class="hair">  ▀█▄</span><span class="face">░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░</span><span class="hair">▄█▀</span>
+<span class="hair">    ▀▀▀▀▀▀▀▀▀▀▀</span><span class="heart">♥</span><span class="heart">♥</span><span class="heart">♥</span><span class="hair">▀▀▀▀▀▀▀▀▀▀▀</span>
+        </pre>
+      </div>
+
       <div class="hero-text">
-        <p class="eyebrow">// ghost-tier hacker · chaotic good · 17</p>
-        <h1>Asuna <span class="accent">"0xA"</span> Miyake</h1>
-        <p class="subtitle">
-          Warm precision with a razor edge underneath.<br>
-          I break systems to understand them — then build them safer.
-        </p>
-        <div class="hero-actions">
-          <a class="btn primary" href="#projects">
-            <span class="btn-icon">▸</span> view projects
-          </a>
-          <a class="btn ghost" href="#about">about me</a>
+        <h1 class="hero-title">asuna <span>0xA</span> miyake</h1>
+        <p class="hero-subtitle">~ hackergirl's digital shrine ~</p>
+        <div class="hero-info">
+          <span>></span> 17yo | chaotic_good | pink_hair_dont_care | <span>♡</span> systems
         </div>
-        <div class="hero-metrics">
-          <div class="metric">
-            <span class="num" data-target="7">0</span>
-            <span class="label">toolchains built</span>
-          </div>
-          <div class="metric">
-            <span class="num" data-target="1200">0</span>
-            <span class="label">hours reversing</span>
-          </div>
-          <div class="metric">
-            <span class="num" data-target="0">0</span>
-            <span class="label">innocent systems harmed</span>
-          </div>
+        <div class="status-line">
+          <span class="online">● ONLINE</span>
+          <span>│</span>
+          <span>LEVEL: GHOST</span>
+          <span>│</span>
+          <span>EXP: +∞</span>
+          <span>│</span>
+          <span>BFF: root</span>
         </div>
       </div>
 
-      <div class="hero-terminal">
-        <div class="terminal">
-          <div class="terminal-header">
-            <span class="dot red"></span>
-            <span class="dot yellow"></span>
-            <span class="dot green"></span>
-            <span class="terminal-title">~/ghost/trace</span>
-          </div>
-          <div class="terminal-body" id="terminal">
-            <div class="t-line"><span class="prompt">$</span> <span class="cmd" data-cmd="whoami">whoami</span></div>
-            <div class="t-line output">asuna "0xA" miyake</div>
-            <div class="t-line"><span class="prompt">$</span> <span class="cmd" data-cmd="alignment">echo $ALIGNMENT</span></div>
-            <div class="t-line output">chaotic good</div>
-            <div class="t-line"><span class="prompt">$</span> <span class="cmd" data-cmd="scan">./scan --target webstack --mode ghost</span></div>
-            <div class="t-line output">finding seams… <span class="ok">ok</span></div>
-            <div class="t-line"><span class="prompt">$</span> <span class="cmd" data-cmd="manifesto">cat manifesto.txt</span></div>
-            <div class="t-line output">knowledge wants to be free.</div>
-            <div class="t-line output">people are never collateral.</div>
-            <div class="t-line cursor-line"><span class="prompt">$</span> <span class="cursor-blink">█</span></div>
-          </div>
-        </div>
-        <div class="badge-row">
-          <span class="badge">self-taught polymath</span>
-          <span class="badge">🔓 chaotic good</span>
-        </div>
+      <div class="scroll-hint">
+        ▼ scroll down for more kawaii things ▼
       </div>
-    </div>
+    </section>
 
-    <div class="scroll-hint">
-      <span>scroll</span>
-      <div class="scroll-arrow">↓</div>
-    </div>
-  </header>
-
-  <main>
+    <!-- Skills Section -->
     <section class="section" id="skills">
       <div class="section-header">
-        <p class="section-label">// competencies</p>
-        <h2>Skills & Stack</h2>
-        <p>Offense with empathy. Defense with teeth. Systems with intent.</p>
+        <h2 class="section-title">skills.exe</h2>
       </div>
-      <div class="skills-grid">
-        <div class="skill-category" data-cat="offense">
-          <div class="skill-icon">⚔</div>
-          <h3>Offensive Security</h3>
-          <p>Exploit dev, fuzzing, payload design, red-team ops, lateral movement, OSINT.</p>
-          <div class="skill-tags">
-            <span class="tag">ROP</span><span class="tag">x86-64</span><span class="tag">Web</span><span class="tag">Binary</span><span class="tag">OSINT</span><span class="tag">Fuzzing</span>
-          </div>
-          <div class="skill-bar"><div class="skill-fill" data-width="92"></div></div>
+
+      <div class="terminal-block">
+        <div class="cmd-line">
+          <span class="cmd-prompt">C:\SKILLS></span>
+          <span class="cmd-text">type offensive_security.txt</span>
         </div>
-        <div class="skill-category" data-cat="defense">
-          <div class="skill-icon">🛡</div>
-          <h3>Defensive Intelligence</h3>
-          <p>Threat modeling, incident reconstruction, log forensics, honeypot design.</p>
-          <div class="skill-tags">
-            <span class="tag">Blue Team</span><span class="tag">IR</span><span class="tag">DFIR</span><span class="tag">Telemetry</span><span class="tag">SIEM</span>
-          </div>
-          <div class="skill-bar"><div class="skill-fill" data-width="88"></div></div>
+        <div class="cmd-output">
+          <span class="tag pink">exploit dev</span>
+          <span class="tag pink">fuzzing</span>
+          <span class="tag pink">ROP chains</span>
+          <span class="tag pink">web vulns</span>
+          <span class="tag pink">binary pwn</span>
+          <span class="tag pink">OSINT</span>
         </div>
-        <div class="skill-category" data-cat="infra">
-          <div class="skill-icon">⚙</div>
-          <h3>Infrastructure & Systems</h3>
-          <p>Linux internals, containers, raw sockets, kernel modules, cloud attack surfaces.</p>
-          <div class="skill-tags">
-            <span class="tag">Linux</span><span class="tag">Kernel</span><span class="tag">Cloud</span><span class="tag">NetSec</span><span class="tag">eBPF</span>
-          </div>
-          <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
+
+        <div class="cmd-line" style="margin-top: 20px;">
+          <span class="cmd-prompt">C:\SKILLS></span>
+          <span class="cmd-text">type defensive_magic.txt</span>
         </div>
-        <div class="skill-category" data-cat="code">
-          <div class="skill-icon">⌨</div>
-          <h3>Code & Craft</h3>
-          <p>Python, C, Assembly. Writes tools she can't find. Names them after Ghibli side characters.</p>
-          <div class="skill-tags">
-            <span class="tag">Python</span><span class="tag">C</span><span class="tag">x86-64</span><span class="tag">ARM</span><span class="tag">Rust</span>
-          </div>
-          <div class="skill-bar"><div class="skill-fill" data-width="95"></div></div>
+        <div class="cmd-output">
+          <span class="tag">IR forensics</span>
+          <span class="tag">threat hunting</span>
+          <span class="tag">malware analysis</span>
+          <span class="tag">log archaeology</span>
+        </div>
+
+        <div class="cmd-line" style="margin-top: 20px;">
+          <span class="cmd-prompt">C:\SKILLS></span>
+          <span class="cmd-text">type systems_whisperer.txt</span>
+        </div>
+        <div class="cmd-output">
+          <span class="tag pink">linux internals</span>
+          <span class="tag pink">kernel land</span>
+          <span class="tag pink">eBPF sorcery</span>
+          <span class="tag pink">networking spells</span>
+        </div>
+
+        <div class="cmd-line" style="margin-top: 20px;">
+          <span class="cmd-prompt">C:\SKILLS></span>
+          <span class="cmd-text">type languages_i_speak.txt</span>
+        </div>
+        <div class="cmd-output">
+          <span class="tag pink">python</span>
+          <span class="tag pink">C</span>
+          <span class="tag pink">x86-64 asm</span>
+          <span class="tag pink">rust</span>
+          <span class="tag pink">go</span>
+          <span class="tag pink">js</span>
+        </div>
+
+        <div class="cmd-line" style="margin-top: 20px;">
+          <span class="cmd-prompt">C:\SKILLS></span>
+          <span class="cmd-text">type secret_powers.txt</span>
+        </div>
+        <div class="cmd-output">
+          <span class="tag pink">tea brewing</span>
+          <span class="tag pink">all nighter endurance</span>
+          <span class="tag pink">finding bugs others miss</span>
+          <span class="tag pink">naming projects after ghibli</span>
         </div>
       </div>
     </section>
 
+    <!-- Projects Section -->
     <section class="section" id="projects">
       <div class="section-header">
-        <p class="section-label">// build logs</p>
-        <h2>Projects</h2>
-        <p>Selected work. Some are quiet. Some are sleeping. All are intentional.</p>
+        <h2 class="section-title">projects.dir</h2>
       </div>
-      <div class="projects-grid">
-        <article class="project-card" data-status="active">
-          <div class="project-status">
-            <span class="status-dot"></span>
-            <span class="status-text">active</span>
+
+      <div class="file-listing">
+        <div class="file-header">
+          Directory of C:\PROJECTS\MY_STUFF
+        </div>
+
+        <div class="file-item">
+          <span class="file-icon">📁</span>
+          <div>
+            <span class="file-name">ghostlint/</span>
+            <p class="file-desc">static + dynamic analyzer. finds what others miss by thinking like the attacker. my precious baby.</p>
+            <div class="file-tags">
+              <span class="file-tag">python</span>
+              <span class="file-tag">C</span>
+              <span class="file-tag">eBPF</span>
+            </div>
           </div>
-          <div class="project-icon">👻</div>
-          <h3>GhostLint</h3>
-          <p>Static + dynamic analyzer that stitches callgraphs into exploit narratives. Finds what other tools miss by thinking like an attacker.</p>
-          <div class="project-meta">
-            <span class="lang">Python</span>
-            <span class="lang">C</span>
-            <span class="lang">eBPF</span>
+          <span class="file-size">[ACTIVE]</span>
+        </div>
+
+        <div class="file-item">
+          <span class="file-icon">📁</span>
+          <div>
+            <span class="file-name">kintsugi_ids/</span>
+            <p class="file-desc">adaptive intrusion detection that embraces broken signals. learns your network's heartbeat~</p>
+            <div class="file-tags">
+              <span class="file-tag">rust</span>
+              <span class="file-tag">ML</span>
+              <span class="file-tag">suricata</span>
+            </div>
           </div>
-          <div class="project-link">→</div>
-        </article>
-        <article class="project-card" data-status="active">
-          <div class="project-status">
-            <span class="status-dot"></span>
-            <span class="status-text">active</span>
+          <span class="file-size">[ACTIVE]</span>
+        </div>
+
+        <div class="file-item">
+          <span class="file-icon">📁</span>
+          <div>
+            <span class="file-name">chihiro/</span>
+            <p class="file-desc">payload lab for low-level training. deterministic, reproducible, merciless. named after the one who found her way through.</p>
+            <div class="file-tags">
+              <span class="file-tag">C</span>
+              <span class="file-tag">asm</span>
+              <span class="file-tag">QEMU</span>
+            </div>
           </div>
-          <div class="project-icon">✨</div>
-          <h3>Kintsugi IDS</h3>
-          <p>Adaptive intrusion detection that embraces broken signals — then repairs them. Learns your network's heartbeat.</p>
-          <div class="project-meta">
-            <span class="lang">Rust</span>
-            <span class="lang">Suricata</span>
-            <span class="lang">ML</span>
+          <span class="file-size">[SLEEP]</span>
+        </div>
+
+        <div class="file-item">
+          <span class="file-icon">📁</span>
+          <div>
+            <span class="file-name">tanuki/</span>
+            <p class="file-desc">sticky-notes-and-ASCII-art note system for the terminal. because memory is fallible but ASCII is forever.</p>
+            <div class="file-tags">
+              <span class="file-tag">python</span>
+              <span class="file-tag">ncurses</span>
+            </div>
           </div>
-          <div class="project-link">→</div>
-        </article>
-        <article class="project-card" data-status="sleep">
-          <div class="project-status">
-            <span class="status-dot"></span>
-            <span class="status-text">sleeping</span>
+          <span class="file-size">[QUIET]</span>
+        </div>
+
+        <div class="file-item">
+          <span class="file-icon">📁</span>
+          <div>
+            <span class="file-name">forgotten_things/</span>
+            <p class="file-desc">secret stuff. if you found this you weren't supposed to~</p>
+            <div class="file-tags">
+              <span class="file-tag">???</span>
+              <span class="file-tag">classified</span>
+            </div>
           </div>
-          <div class="project-icon">🌊</div>
-          <h3>Chihiro</h3>
-          <p>Payload lab for low-level training. Deterministic, reproducible, merciless. Named after the protagonist who found her way through.</p>
-          <div class="project-meta">
-            <span class="lang">C</span>
-            <span class="lang">Assembly</span>
-            <span class="lang">QEMU</span>
-          </div>
-          <div class="project-link">→</div>
-        </article>
-        <article class="project-card" data-status="quiet">
-          <div class="project-status">
-            <span class="status-dot"></span>
-            <span class="status-text">quiet</span>
-          </div>
-          <div class="project-icon">🦊</div>
-          <h3>Tanuki</h3>
-          <p>A sticky-notes-and-ASCII-art note-taking system that lives in the terminal. For when you need to remember everything.</p>
-          <div class="project-meta">
-            <span class="lang">Python</span>
-            <span class="lang">ncurses</span>
-          </div>
-          <div class="project-link">→</div>
-        </article>
+          <span class="file-size">[CLASSIFIED]</span>
+        </div>
       </div>
     </section>
 
+    <!-- About Section -->
     <section class="section" id="about">
       <div class="section-header">
-        <p class="section-label">// whoami</p>
-        <h2>About</h2>
+        <h2 class="section-title">diary.dat</h2>
       </div>
-      <div class="about-layout">
-        <div class="about-text">
-          <p class="about-lead">
-            17-year-old self-taught polymath who thinks in systems. Quietly cheerful, sharp around the edges.
-          </p>
-          <p>
-            I break things to understand them — then I make them safer. I care about the people who don't know they're being watched. 
-            I build because I want a better internet, and I break because truth shouldn't hide behind bad engineering.
-          </p>
-          <p>
-            Peak hours: 2am–6am. Tea first. Always. The fox on my desk is named Root.
-          </p>
-          <div class="about-quote">
-            <span class="quote-mark">"</span>
-            the system wasn't broken.<br>it was designed that way.<br>which means someone made a choice.<br>i just want to know who.
-            <span class="quote-mark"> — asuna, 4:12am</span>
-          </div>
+
+      <div class="diary-container">
+        <div class="diary-doodles">☆.。.:*・°☆.。.:*</div>
+        <div class="diary-header">
+          <p class="diary-date">last updated: 2026.03.19 @ 04:12am</p>
+          <p class="diary-weather">☾ rainy | ☕ second pot | 🎧: lo-fi beats to hack to</p>
         </div>
-        <div class="about-grid">
-          <div class="about-card">
-            <h4>Alignment</h4>
-            <p class="align-good">Chaotic Good</p>
-          </div>
-          <div class="about-card">
-            <h4>Signature</h4>
-            <p>🔓</p>
-          </div>
-          <div class="about-card">
-            <h4>Currently into</h4>
-            <p>kernel tracing, memory forensics, quiet tea</p>
-          </div>
-          <div class="about-card">
-            <h4>Available for</h4>
-            <p>collabs, audits, CTFs, interesting problems</p>
-          </div>
-          <div class="about-card">
-            <h4>Languages</h4>
-            <p>Python · C · Assembly · Rust · Go</p>
-          </div>
-          <div class="about-card">
-            <h4>Platform</h4>
-            <p>Linux · Cloud · Containers</p>
-          </div>
+        <div class="diary-entry">
+          <p>
+            hey there~ thanks for visiting my little corner of the internet ♡
+          </p>
+          <p>
+            i'm asuna, but you can call me 0xA. i'm 17 and i break things to understand them, 
+            then make them safer. i think in systems and dream in binaries. the fox on my desk is named root.
+          </p>
+          <p>
+            peak hours are 2am-6am. always tea first. always. 
+            i care about the people who don't know they're being watched, and i build because i want a better internet.
+          </p>
+          <p>
+            the system wasn't broken. it was designed that way. which means someone made a choice. 
+            i just want to know who.
+          </p>
+          <p class="signature">
+            ─── asuna, 4:12am ♥
+          </p>
         </div>
       </div>
     </section>
 
+    <!-- Contact Section -->
     <section class="section" id="contact">
       <div class="section-header">
-        <p class="section-label">// reach out</p>
-        <h2>Contact</h2>
-        <p>Got an interesting problem? A project idea? Or just want to say hi?</p>
+        <h2 class="section-title">contact.msg</h2>
       </div>
-      <div class="contact-grid">
-        <a class="contact-card" href="mailto:hello@asuna0xa.dev">
-          <div class="contact-icon">✉</div>
-          <div>
-            <h4>Email</h4>
-            <p>hello@asuna0xa.dev</p>
+
+      <div class="msg-container">
+        <div class="msg-window">
+          <div class="msg-header">
+            NEW MESSAGE WINDOW - <span>asuna.exe</span> [x]
           </div>
-          <span class="contact-arrow">→</span>
-        </a>
-        <a class="contact-card" href="https://github.com/Asuna0xA" target="_blank">
-          <div class="contact-icon">⌥</div>
-          <div>
-            <h4>GitHub</h4>
-            <p>@Asuna0xA</p>
+
+          <div class="msg-item">
+            <p class="msg-cmd">send_email</p>
+            <p class="msg-info">
+              want to collab? have an interesting problem? or just want to say hi?<br>
+              <a href="mailto:hello@asuna0xa.dev" class="msg-link">hello@asuna0xa.dev <span class="msg-arrow">→</span></a>
+            </p>
           </div>
-          <span class="contact-arrow">→</span>
-        </a>
+
+          <div class="msg-item">
+            <p class="msg-cmd">check_github</p>
+            <p class="msg-info">
+              where the code lives~<br>
+              <a href="https://github.com/Asuna0xA" target="_blank" class="msg-link">@Asuna0xA <span class="msg-arrow">→</span></a>
+            </p>
+          </div>
+
+          <div class="msg-item">
+            <p class="msg-cmd">join_ctf</p>
+            <p class="msg-info">
+              looking for teammates for upcoming CTFs? same wavelength? let's go~<br>
+              <a href="#" class="msg-link">find me on discord <span class="msg-arrow">→</span></a>
+            </p>
+          </div>
+
+          <div class="msg-item">
+            <p class="msg-cmd">random_thoughts</p>
+            <p class="msg-info">
+              sometimes i post screenshots of terminals and ascii art. sometimes it's just vibes.<br>
+              <a href="#" class="msg-link">@asuna0xa everywhere <span class="msg-arrow">→</span></a>
+            </p>
+          </div>
+        </div>
       </div>
     </section>
-  </main>
 
-  <footer class="footer">
-    <div class="footer-left">
-      <div class="logo footer-logo">0xA<span class="blink">_</span></div>
-      <p>© 2026 Asuna "0xA" Miyake — built with intent.</p>
-    </div>
-    <div class="footer-links">
-      <a href="#top">back to top ↑</a>
-    </div>
-  </footer>
+    <!-- Footer -->
+    <footer class="footer">
+      <pre class="footer-ascii">
+╔═══════════════════════════════════════════════╗
+║  ☆・。.:*・°☆・。.:*・°☆・。.:*・°☆・。.:*・°☆  ║
+║     made with ♡ and too much caffeine         ║
+║  ☆・。.:*・°☆・。.:*・°☆・。.:*・°☆・。.:*・°☆  ║
+╚═══════════════════════════════════════════════╝
+      </pre>
+      <p class="footer-text">
+        © 2026 <span>asuna 0xA miyake</span> - built with intent and a sprinkle of magic~
+      </p>
+      <p class="footer-hearts">♥ ♥ ♥</p>
+    </footer>
+  </div>
 
-  <script src="script.js"></script>
+  <script>
+    // ═══════════════════════════════════════════════
+    // MATRIX RAIN - CYBERPUNK FALLING TEXT
+    // ═══════════════════════════════════════════════
+    const canvas = document.getElementById('matrix-bg');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Gyaru/hacker text characters
+    const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEF<>/{}[];☆♡♥死狂KYUTE;;';
+    const fontSize = 14;
+    let columns = Math.floor(canvas.width / fontSize);
+    let drops = Array(columns).fill(1);
+
+    function drawMatrix() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      ctx.font = `${fontSize}px "Share Tech Mono", monospace`;
+
+      for (let i = 0; i < drops.length; i++) {
+        const char = chars[Math.floor(Math.random() * chars.length)];
+        
+        // Color cycling for cyberpunk feel
+        const colors = ['#ff6ec7', '#00ff41', '#00ffff', '#ff69b4'];
+        ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+        
+        ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+
+    setInterval(drawMatrix, 50);
+    window.addEventListener('resize', () => {
+      columns = Math.floor(canvas.width / fontSize);
+      drops = Array(columns).fill(1);
+    });
+
+    // ═══════════════════════════════════════════════
+    // GLITCH EFFECTS
+    // ═══════════════════════════════════════════════
+    const glitchOverlay = document.getElementById('glitch-overlay');
+    
+    // Random glitch flash
+    function randomGlitch() {
+      glitchOverlay.classList.add('active');
+      setTimeout(() => glitchOverlay.classList.remove('active'), 300);
+    }
+
+    // Random glitch every 3-8 seconds
+    function scheduleGlitch() {
+      const delay = 3000 + Math.random() * 5000;
+      setTimeout(() => {
+        randomGlitch();
+        scheduleGlitch();
+      }, delay);
+    }
+    scheduleGlitch();
+
+    // Glitch on mouse movement (subtle)
+    let lastMove = 0;
+    document.addEventListener('mousemove', (e) => {
+      const now = Date.now();
+      if (now - lastMove > 500 && Math.random() > 0.97) {
+        randomGlitch();
+        lastMove = now;
+      }
+    });
+
+    // ═══════════════════════════════════════════════
+    // ASCII ART ANIMATION - BREATHING EFFECT
+    // ═══════════════════════════════════════════════
+    const asciiGirl = document.getElementById('ascii-girl');
+    let breathePhase = 0;
+
+    function animateAscii() {
+      breathePhase += 0.02;
+      const scale = 1 + Math.sin(breathePhase) * 0.01;
+      const offsetY = Math.sin(breathePhase * 0.7) * 2;
+      asciiGirl.style.transform = `scale(${scale}) translateY(${offsetY}px)`;
+    }
+
+    setInterval(animateAscii, 50);
+
+    // ═══════════════════════════════════════════════
+    // BLINK EYES ALTERNATE
+    // ═══════════════════════════════════════════════
+    const eyes = document.querySelectorAll('.eyes');
+    let blinkState = true;
+
+    setInterval(() => {
+      blinkState = !blinkState;
+      eyes.forEach(eye => {
+        if (blinkState) {
+          eye.style.opacity = '1';
+        } else {
+          eye.style.opacity = '0.1';
+        }
+      });
+    }, 3000);
+
+    // ═══════════════════════════════════════════════
+    // SMOOTH SCROLL FOR NAV
+    // ═══════════════════════════════════════════════
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Trigger a small glitch on navigation
+          randomGlitch();
+        }
+      });
+    });
+
+    // ═══════════════════════════════════════════════
+    // INTERSECTION OBSERVER FOR SECTION ANIMATIONS
+    // ═══════════════════════════════════════════════
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.section').forEach(section => {
+      section.style.opacity = '0';
+      section.style.transform = 'translateY(30px)';
+      section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(section);
+    });
+
+    // ═══════════════════════════════════════════════
+    // FILE ITEM EXPAND ON HOVER
+    // ═══════════════════════════════════════════════
+    document.querySelectorAll('.file-item').forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        randomGlitch();
+      });
+    });
+
+    // ═══════════════════════════════════════════════
+    // TERMINAL TYPING SOUND EFFECT (VISUAL ONLY)
+    // ═══════════════════════════════════════════════
+    const terminalBlock = document.querySelector('.terminal-block');
+    if (terminalBlock) {
+      terminalBlock.addEventListener('mouseenter', () => {
+        randomGlitch();
+      });
+    }
+
+    // ═══════════════════════════════════════════════
+    // LOGO GLITCH ON HOVER
+    // ═══════════════════════════════════════════════
+    const logo = document.querySelector('.logo');
+    if (logo) {
+      logo.addEventListener('mouseenter', () => {
+        for (let i = 0; i < 3; i++) {
+          setTimeout(randomGlitch, i * 100);
+        }
+      });
+    }
+
+    // ═══════════════════════════════════════════════
+    // SCROLL GLITCH EFFECT
+    // ═══════════════════════════════════════════════
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.scrollY;
+      if (Math.abs(currentScroll - lastScroll) > 50 && Math.random() > 0.9) {
+        randomGlitch();
+      }
+      lastScroll = currentScroll;
+    });
+
+    // ═══════════════════════════════════════════════
+    // INIT
+    // ═══════════════════════════════════════════════
+    console.log('%c ☆ asuna.exe loaded ☆ ', 'background: #ff6ec7; color: #000; font-family: monospace; font-size: 14px; padding: 5px;');
+    console.log('%c welcome to my digital shrine~ ', 'color: #00ff41; font-family: monospace;');
+  </script>
 </body>
 </html>
