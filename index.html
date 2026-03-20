@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
+  <script>
+    document.documentElement.classList.remove('no-js');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>asuna.exe // GHOST_TIER_HACKER</title>
@@ -161,6 +164,46 @@
       transition: width 0.1s linear;
     }
 
+    .skip-boot-btn {
+      position: absolute;
+      bottom: 30px;
+      right: 40px;
+      background: transparent;
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      padding: 8px 16px;
+      cursor: pointer;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+      opacity: 0.6;
+    }
+
+    .skip-boot-btn:hover {
+      background: var(--cyan);
+      color: var(--bg);
+      box-shadow: var(--cyan-glow);
+      opacity: 1;
+    }
+
+    .skip-boot-btn:focus {
+      outline: none;
+      border-color: var(--pink);
+      box-shadow: 0 0 10px var(--pink), 0 0 20px var(--pink), inset 0 0 10px rgba(255, 110, 199, 0.3);
+      opacity: 1;
+    }
+
+    .skip-boot-btn::before {
+      content: '>> ';
+    }
+
+    .skip-boot-btn::after {
+      content: ' [ESC]';
+      opacity: 0.5;
+    }
+
     .main-content {
       position: relative;
       z-index: 1;
@@ -170,6 +213,14 @@
 
     .main-content.visible {
       opacity: 1;
+    }
+
+    .no-js .main-content {
+      opacity: 1;
+    }
+
+    .no-js .boot-screen {
+      display: none;
     }
 
     .glitch-overlay {
@@ -1054,6 +1105,12 @@
   </style>
 </head>
 <body>
+  <noscript>
+    <style>
+      .boot-screen { display: none !important; }
+      .main-content { opacity: 1 !important; }
+    </style>
+  </noscript>
   <canvas id="particles-canvas"></canvas>
   <canvas id="mouse-trail-canvas" class="mouse-trail-canvas"></canvas>
   <div class="crt-overlay"></div>
@@ -1084,6 +1141,7 @@
     <div class="boot-progress">
       <div class="boot-progress-bar" id="boot-progress-bar"></div>
     </div>
+    <button class="skip-boot-btn" id="skip-boot-btn" aria-label="Skip boot animation">skip boot</button>
   </div>
 
   <div class="main-content" id="main-content">
@@ -1901,8 +1959,23 @@ Type 'help' to see available commands.`,
 
       let lineIndex = 0;
       let progress = 0;
+      let skipped = false;
+      let timeoutId = null;
+
+      function finishBoot() {
+        if (skipped) return;
+        skipped = true;
+        clearTimeout(failsafeTimeout);
+        if (timeoutId) clearTimeout(timeoutId);
+        bootScreen.classList.add('hidden');
+        mainContent.classList.add('visible');
+        initSkillAnimations();
+      }
+
+      const failsafeTimeout = setTimeout(finishBoot, 6000);
 
       function showNextLine() {
+        if (skipped) return;
         if (lineIndex < lines.length) {
           lines[lineIndex].classList.add('visible');
           lineIndex++;
@@ -1910,15 +1983,23 @@ Type 'help' to see available commands.`,
           progressBar.style.width = progress + '%';
 
           const delay = lineIndex < lines.length - 2 ? 100 + Math.random() * 200 : 300;
-          setTimeout(showNextLine, delay);
+          timeoutId = setTimeout(showNextLine, delay);
         } else {
-          setTimeout(() => {
-            bootScreen.classList.add('hidden');
-            mainContent.classList.add('visible');
-            initSkillAnimations();
-          }, 800);
+          setTimeout(finishBoot, 800);
         }
       }
+
+      const skipBoot = () => {
+        if (skipped) return;
+        lines.forEach(line => line.classList.add('visible'));
+        progressBar.style.width = '100%';
+        finishBoot();
+      };
+
+      document.getElementById('skip-boot-btn').addEventListener('click', skipBoot);
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') skipBoot();
+      });
 
       showNextLine();
     }
