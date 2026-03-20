@@ -1757,11 +1757,6 @@ Type 'help' to see available commands.`,
         this.animate();
       }
 
-      resize() {
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
-      }
-
       bindEvents() {
         document.addEventListener('mousemove', (e) => {
           for (let i = 0; i < 3; i++) {
