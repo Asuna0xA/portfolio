@@ -97,130 +97,9 @@
       background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
     }
 
-    .boot-screen {
-      position: fixed;
-      inset: 0;
-      background: var(--bg);
-      z-index: 10000;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 40px;
-      font-family: 'JetBrains Mono', monospace;
-      transition: opacity 0.5s ease, visibility 0.5s ease;
-    }
-
-    .boot-screen.hidden {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .boot-line {
-      opacity: 0;
-      transform: translateX(-20px);
-      margin-bottom: 2px;
-      font-size: 12px;
-    }
-
-    .boot-line.visible {
-      opacity: 1;
-      transform: translateX(0);
-      transition: opacity 0.1s ease, transform 0.1s ease;
-    }
-
-    .boot-line .label {
-      color: var(--cyan);
-    }
-
-    .boot-line .value {
-      color: var(--green);
-    }
-
-    .boot-line .ok {
-      color: var(--green);
-      text-shadow: var(--green-glow);
-    }
-
-    .boot-line .warn {
-      color: var(--pink);
-      text-shadow: var(--pink-glow);
-    }
-
-    .boot-progress {
-      width: 300px;
-      height: 4px;
-      background: var(--bg-light);
-      margin-top: 20px;
-      border: 1px solid var(--green);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .boot-progress-bar {
-      height: 100%;
-      background: var(--green);
-      box-shadow: var(--green-glow);
-      width: 0%;
-      transition: width 0.1s linear;
-    }
-
-    .skip-boot-btn {
-      position: absolute;
-      bottom: 30px;
-      right: 40px;
-      background: transparent;
-      border: 1px solid var(--cyan);
-      color: var(--cyan);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      padding: 8px 16px;
-      cursor: pointer;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      transition: all 0.2s ease;
-      opacity: 0.6;
-    }
-
-    .skip-boot-btn:hover {
-      background: var(--cyan);
-      color: var(--bg);
-      box-shadow: var(--cyan-glow);
-      opacity: 1;
-    }
-
-    .skip-boot-btn:focus {
-      outline: none;
-      border-color: var(--pink);
-      box-shadow: 0 0 10px var(--pink), 0 0 20px var(--pink), inset 0 0 10px rgba(255, 110, 199, 0.3);
-      opacity: 1;
-    }
-
-    .skip-boot-btn::before {
-      content: '>> ';
-    }
-
-    .skip-boot-btn::after {
-      content: ' [ESC]';
-      opacity: 0.5;
-    }
-
     .main-content {
       position: relative;
       z-index: 1;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-
-    .main-content.visible {
-      opacity: 1;
-    }
-
-    .no-js .main-content {
-      opacity: 1;
-    }
-
-    .no-js .boot-screen {
-      display: none;
     }
 
     .glitch-overlay {
@@ -1105,44 +984,11 @@
   </style>
 </head>
 <body>
-  <noscript>
-    <style>
-      .boot-screen { display: none !important; }
-      .main-content { opacity: 1 !important; }
-    </style>
-  </noscript>
+
   <canvas id="particles-canvas"></canvas>
   <canvas id="mouse-trail-canvas" class="mouse-trail-canvas"></canvas>
   <div class="crt-overlay"></div>
   <div class="glitch-overlay" id="glitch-overlay"></div>
-
-  <div class="boot-screen" id="boot-screen">
-    <div class="boot-line" data-delay="0"><span class="label">BIOS</span> v4.2.1 ... initializing</div>
-    <div class="boot-line" data-delay="200"><span class="label">CPU</span> Intel i9 @ 5.2GHz <span class="ok">[OK]</span></div>
-    <div class="boot-line" data-delay="400"><span class="label">MEM</span> Checking 32GB DDR5...</div>
-    <div class="boot-line" data-delay="600"><span class="label">MEM</span> 32768MB <span class="ok">[OK]</span></div>
-    <div class="boot-line" data-delay="800"><span class="label">NET</span> eth0: Realtek RTL8125 <span class="ok">[OK]</span></div>
-    <div class="boot-line" data-delay="1000"><span class="label">NET</span> wlan0: Intel AX211 Wi-Fi 6E <span class="ok">[OK]</span></div>
-    <div class="boot-line" data-delay="1200"><span class="label">SEC</span> Initializing encryption modules...</div>
-    <div class="boot-line" data-delay="1400"><span class="label">SEC</span> TOR routing enabled <span class="ok">[OK]</span></div>
-    <div class="boot-line" data-delay="1600"><span class="label">SEC</span> VPN tunnel established <span class="ok">[OK]</span></div>
-    <div class="boot-line" data-delay="1800"><span class="label">SYS</span> Loading kernel modules...</div>
-    <div class="boot-line" data-delay="2000"><span class="label">SYS</span> Mounting encrypted volumes...</div>
-    <div class="boot-line" data-delay="2200"><span class="label">SYS</span> /dev/sda1 (root) <span class="ok">[OK]</span></div>
-    <div class="boot-line" data-delay="2400"><span class="label">SYS</span> /dev/sdb1 (secure) <span class="ok">[OK]</span></div>
-    <div class="boot-line" data-delay="2600"><span class="label">SYS</span> /dev/sdc1 (encrypted) <span class="ok">[OK]</span></div>
-    <div class="boot-line" data-delay="2800"><span class="label">USR</span> Loading user profile: <span class="value">asuna</span></div>
-    <div class="boot-line" data-delay="3000"><span class="label">USR</span> Clearance level: <span class="warn">GHOST_TIER</span></div>
-    <div class="boot-line" data-delay="3200"><span class="label">USR</span> Alignment: <span class="value">CHAOTIC_GOOD</span></div>
-    <div class="boot-line" data-delay="3400"><span class="label">NET</span> Spoofing MAC address...</div>
-    <div class="boot-line" data-delay="3600"><span class="label">NET</span> MAC: 00:11:22:33:44:55 <span class="ok">[OK]</span></div>
-    <div class="boot-line" data-delay="3800"><span class="label">WELCOME</span> Welcome back, <span class="warn">0xA</span></div>
-    <div class="boot-line" data-delay="4000"><span class="label">LOAD</span> Initializing portfolio...</div>
-    <div class="boot-progress">
-      <div class="boot-progress-bar" id="boot-progress-bar"></div>
-    </div>
-    <button class="skip-boot-btn" id="skip-boot-btn" aria-label="Skip boot animation">skip boot</button>
-  </div>
 
   <div class="main-content" id="main-content">
     <nav class="nav">
@@ -1695,7 +1541,6 @@ Built with vanilla HTML, CSS, and <\/script>.
 No frameworks. No build tools. Pure code.
 
 Features:
-  • Boot sequence animation
   • Interactive terminal console
   • Particle background effects
   • Glitch visual effects
@@ -1951,59 +1796,6 @@ Type 'help' to see available commands.`,
       setTimeout(() => overlay.classList.remove('active'), 150);
     }
 
-    function runBootSequence() {
-      const lines = document.querySelectorAll('.boot-line');
-      const progressBar = document.getElementById('boot-progress-bar');
-      const bootScreen = document.getElementById('boot-screen');
-      const mainContent = document.getElementById('main-content');
-
-      let lineIndex = 0;
-      let progress = 0;
-      let skipped = false;
-      let timeoutId = null;
-
-      function finishBoot() {
-        if (skipped) return;
-        skipped = true;
-        clearTimeout(failsafeTimeout);
-        if (timeoutId) clearTimeout(timeoutId);
-        bootScreen.classList.add('hidden');
-        mainContent.classList.add('visible');
-        initSkillAnimations();
-      }
-
-      const failsafeTimeout = setTimeout(finishBoot, 3500);
-
-      function showNextLine() {
-        if (skipped) return;
-        if (lineIndex < lines.length) {
-          lines[lineIndex].classList.add('visible');
-          lineIndex++;
-          progress = (lineIndex / lines.length) * 100;
-          progressBar.style.width = progress + '%';
-
-          const delay = lineIndex < lines.length - 2 ? 50 + Math.random() * 100 : 150;
-          timeoutId = setTimeout(showNextLine, delay);
-        } else {
-          setTimeout(finishBoot, 400);
-        }
-      }
-
-      const skipBoot = () => {
-        if (skipped) return;
-        lines.forEach(line => line.classList.add('visible'));
-        progressBar.style.width = '100%';
-        finishBoot();
-      };
-
-      document.getElementById('skip-boot-btn').addEventListener('click', skipBoot);
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') skipBoot();
-      });
-
-      showNextLine();
-    }
-
     function initSkillAnimations() {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -2026,7 +1818,7 @@ Type 'help' to see available commands.`,
       new MouseTrail();
       const consoleInstance = new Console();
 
-      runBootSequence();
+      initSkillAnimations();
 
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
