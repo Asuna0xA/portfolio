@@ -118,8 +118,8 @@
     .boot-line {
       opacity: 0;
       transform: translateX(-20px);
-      margin-bottom: 4px;
-      font-size: 14px;
+      margin-bottom: 2px;
+      font-size: 12px;
     }
 
     .boot-line.visible {
@@ -1972,7 +1972,7 @@ Type 'help' to see available commands.`,
         initSkillAnimations();
       }
 
-      const failsafeTimeout = setTimeout(finishBoot, 6000);
+      const failsafeTimeout = setTimeout(finishBoot, 3500);
 
       function showNextLine() {
         if (skipped) return;
@@ -1982,10 +1982,10 @@ Type 'help' to see available commands.`,
           progress = (lineIndex / lines.length) * 100;
           progressBar.style.width = progress + '%';
 
-          const delay = lineIndex < lines.length - 2 ? 100 + Math.random() * 200 : 300;
+          const delay = lineIndex < lines.length - 2 ? 50 + Math.random() * 100 : 150;
           timeoutId = setTimeout(showNextLine, delay);
         } else {
-          setTimeout(finishBoot, 800);
+          setTimeout(finishBoot, 400);
         }
       }
 
