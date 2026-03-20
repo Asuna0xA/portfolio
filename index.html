@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>☆ asuna.exe - hackergirl's lair ☆</title>
-  <meta name="description" content="asuna 0xA - 17yo hacker girl. pink hair, black heart, green terminal. welcome to my digital shrine~">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💀</text></svg>">
+  <title>asuna.exe // GHOST_TIER_HACKER</title>
+  <meta name="description" content="Asuna 0xA - 17yo ghost-tier hacker. Chaotic Good. Offensive/Defensive security expert.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👻</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --pink: #ff6ec7;
       --green: #00ff41;
       --cyan: #00ffff;
-      --black: #000000;
-      --dark: #0a0a0a;
-      --pink-dim: rgba(255, 110, 199, 0.15);
-      --green-dim: rgba(0, 255, 65, 0.15);
-      --cyan-dim: rgba(0, 255, 255, 0.15);
+      --bg: #0a0a0f;
+      --bg-light: #12121a;
+      --pink-glow: 0 0 10px #ff6ec7, 0 0 20px #ff6ec7, 0 0 40px #ff6ec766;
+      --green-glow: 0 0 10px #00ff41, 0 0 20px #00ff41, 0 0 40px #00ff4166;
+      --cyan-glow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 40px #00ffff66;
     }
 
     * {
@@ -32,150 +32,206 @@
     }
 
     body {
-      font-family: 'VT323', monospace;
-      background: var(--black);
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--bg);
       color: var(--green);
       min-height: 100vh;
       overflow-x: hidden;
-      cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><text y="15" font-size="16">✧</text></svg>'), auto;
+      cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2" fill="%2300ff41"/><circle cx="12" cy="12" r="8" fill="none" stroke="%2300ff41" stroke-width="1" opacity="0.5"/></svg>'), auto;
     }
 
     ::selection {
       background: var(--pink);
-      color: var(--black);
+      color: var(--bg);
     }
 
     ::-webkit-scrollbar {
-      width: 8px;
+      width: 6px;
     }
 
     ::-webkit-scrollbar-track {
-      background: var(--black);
+      background: var(--bg);
     }
 
     ::-webkit-scrollbar-thumb {
-      background: var(--pink-dim);
-      border: 1px solid var(--pink);
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
       background: var(--pink);
+      border-radius: 3px;
     }
 
-    /* CRT Screen Effect Container */
-    .crt-container {
-      position: relative;
-      min-height: 100vh;
-    }
-
-    .crt-container::before {
-      content: '';
+    #particles-canvas {
       position: fixed;
       inset: 0;
-      background: linear-gradient(
-        transparent 50%,
-        rgba(0, 0, 0, 0.15) 50%
-      );
-      background-size: 100% 4px;
+      z-index: 0;
       pointer-events: none;
-      z-index: 9999;
-      animation: scanlines 0.1s linear infinite;
     }
 
-    .crt-container::after {
-      content: '';
+    .mouse-trail-canvas {
       position: fixed;
       inset: 0;
-      background: radial-gradient(
-        ellipse at center,
-        transparent 0%,
-        rgba(0, 0, 0, 0.4) 100%
-      );
+      z-index: 2;
       pointer-events: none;
+    }
+
+    .crt-overlay {
+      position: fixed;
+      inset: 0;
       z-index: 9998;
-    }
-
-    @keyframes scanlines {
-      0% { background-position: 0 0; }
-      100% { background-position: 0 4px; }
-    }
-
-    /* Falling ASCII Background */
-    #matrix-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      opacity: 0.12;
       pointer-events: none;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.1) 0px,
+        rgba(0, 0, 0, 0.1) 1px,
+        transparent 1px,
+        transparent 2px
+      );
+      opacity: 0.3;
     }
 
-    /* Glitch overlay */
+    .crt-overlay::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+    }
+
+    .boot-screen {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px;
+      font-family: 'JetBrains Mono', monospace;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .boot-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .boot-line {
+      opacity: 0;
+      transform: translateX(-20px);
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .boot-line.visible {
+      opacity: 1;
+      transform: translateX(0);
+      transition: opacity 0.1s ease, transform 0.1s ease;
+    }
+
+    .boot-line .label {
+      color: var(--cyan);
+    }
+
+    .boot-line .value {
+      color: var(--green);
+    }
+
+    .boot-line .ok {
+      color: var(--green);
+      text-shadow: var(--green-glow);
+    }
+
+    .boot-line .warn {
+      color: var(--pink);
+      text-shadow: var(--pink-glow);
+    }
+
+    .boot-progress {
+      width: 300px;
+      height: 4px;
+      background: var(--bg-light);
+      margin-top: 20px;
+      border: 1px solid var(--green);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .boot-progress-bar {
+      height: 100%;
+      background: var(--green);
+      box-shadow: var(--green-glow);
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    .main-content {
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .main-content.visible {
+      opacity: 1;
+    }
+
     .glitch-overlay {
       position: fixed;
       inset: 0;
       pointer-events: none;
-      z-index: 9997;
+      z-index: 9999;
       opacity: 0;
     }
 
     .glitch-overlay.active {
-      animation: glitch-flash 0.3s ease-out;
+      animation: glitch-flash 0.15s ease-out;
     }
 
     @keyframes glitch-flash {
       0% { opacity: 1; background: var(--pink); mix-blend-mode: overlay; }
-      25% { opacity: 0.8; background: var(--cyan); mix-blend-mode: difference; }
-      50% { opacity: 0.4; background: var(--green); mix-blend-mode: multiply; }
+      50% { opacity: 0.5; background: var(--cyan); mix-blend-mode: difference; }
       100% { opacity: 0; }
     }
 
-    /* Navigation */
     .nav {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       z-index: 1000;
-      padding: 15px 30px;
-      background: linear-gradient(180deg, var(--black) 0%, transparent 100%);
-      border-bottom: 1px solid var(--pink-dim);
+      padding: 20px 40px;
+      background: linear-gradient(180deg, var(--bg) 0%, transparent 100%);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 1.1rem;
     }
 
     .logo {
-      font-size: 1.4rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 900;
       color: var(--pink);
-      text-shadow: 0 0 10px var(--pink), 0 0 20px var(--pink);
-      animation: flicker 3s infinite;
-      letter-spacing: 2px;
+      text-shadow: var(--pink-glow);
+      letter-spacing: 3px;
+      animation: flicker 4s infinite;
     }
 
-    .logo:hover {
-      animation: glitch-text 0.5s infinite;
+    .logo::before {
+      content: '>';
+      color: var(--green);
+      margin-right: 10px;
+      animation: blink 1s infinite;
     }
 
     @keyframes flicker {
       0%, 100% { opacity: 1; }
       92% { opacity: 1; }
-      93% { opacity: 0.8; }
+      93% { opacity: 0.7; }
       94% { opacity: 1; }
-      95% { opacity: 0.9; }
-      96% { opacity: 1; }
+      96% { opacity: 0.8; }
+      97% { opacity: 1; }
     }
 
-    @keyframes glitch-text {
-      0% { text-shadow: 0 0 10px var(--pink), 0 0 20px var(--pink); transform: translate(0); }
-      20% { text-shadow: -3px 0 var(--cyan), 3px 0 var(--pink); transform: translate(-2px, 1px); }
-      40% { text-shadow: 3px 0 var(--green), -3px 0 var(--cyan); transform: translate(2px, -1px); }
-      60% { text-shadow: 0 0 10px var(--pink), 0 0 20px var(--pink); transform: translate(0); }
-      80% { text-shadow: -2px 0 var(--pink), 2px 0 var(--green); transform: translate(1px, 1px); }
-      100% { text-shadow: 0 0 10px var(--pink), 0 0 20px var(--pink); transform: translate(0); }
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
     }
 
     .nav-links {
@@ -186,596 +242,779 @@
     .nav-links a {
       color: var(--green);
       text-decoration: none;
-      padding: 8px 15px;
+      padding: 8px 16px;
       border: 1px solid transparent;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
       transition: all 0.2s;
       position: relative;
     }
 
-    .nav-links a::before {
-      content: '[';
-      margin-right: 2px;
-      color: var(--cyan);
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-
-    .nav-links a::after {
-      content: ']';
-      margin-left: 2px;
-      color: var(--cyan);
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-
     .nav-links a:hover {
-      color: var(--pink);
-      text-shadow: 0 0 10px var(--pink);
-      border-color: var(--pink-dim);
-      background: var(--pink-dim);
+      color: var(--cyan);
+      border-color: var(--cyan);
+      text-shadow: var(--cyan-glow);
+      box-shadow: inset 0 0 20px var(--cyan-glow);
     }
 
-    .nav-links a:hover::before,
-    .nav-links a:hover::after {
-      opacity: 1;
-    }
-
-    /* Hero Section */
     .hero {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      padding: 100px 40px 60px;
+    }
+
+    .hero-content {
+      max-width: 800px;
+    }
+
+    .hero-container {
+      display: flex;
       align-items: center;
-      padding: 100px 20px 60px;
-      position: relative;
+      gap: 40px;
+      flex-wrap: wrap;
     }
 
-    .ascii-art-container {
-      position: relative;
-      margin-bottom: 30px;
+    .hero-text {
+      flex: 1;
+      min-width: 300px;
     }
 
-    .ascii-art {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: clamp(6px, 1.2vw, 14px);
+    .hero-character {
+      flex-shrink: 0;
+    }
+
+    .ascii-character {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8px;
       line-height: 1.1;
-      color: var(--pink);
-      text-shadow: 0 0 5px var(--pink), 0 0 10px var(--pink);
       white-space: pre;
-      text-align: center;
-      animation: breathe 4s ease-in-out infinite, float 6s ease-in-out infinite;
-    }
-
-    .ascii-art .hair {
       color: var(--pink);
-      text-shadow: 0 0 8px var(--pink), 0 0 15px var(--pink);
-    }
-
-    .ascii-art .face {
-      color: var(--cyan);
-      text-shadow: 0 0 5px var(--cyan), 0 0 10px var(--cyan);
-    }
-
-    .ascii-art .eyes {
-      color: var(--green);
-      text-shadow: 0 0 8px var(--green), 0 0 15px var(--green);
-      animation: blink-eyes 4s infinite;
-    }
-
-    .ascii-art .mouth {
-      color: var(--pink);
-    }
-
-    .ascii-art .blush {
-      color: #ff69b4;
-      text-shadow: 0 0 5px #ff69b4;
-      opacity: 0.7;
-    }
-
-    .ascii-art .heart {
-      color: var(--pink);
-      animation: pulse-heart 1s ease-in-out infinite;
-    }
-
-    @keyframes breathe {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.02); }
+      text-shadow: var(--pink-glow);
+      animation: float 3s ease-in-out infinite, char-glitch 5s infinite;
     }
 
     @keyframes float {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
+      50% { transform: translateY(-8px); }
     }
 
-    @keyframes blink-eyes {
-      0%, 45%, 55%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
+    @keyframes char-glitch {
+      0%, 92%, 100% { 
+        text-shadow: var(--pink-glow);
+        opacity: 1;
+      }
+      93% { 
+        text-shadow: -2px 0 var(--cyan), 2px 0 #fff;
+        opacity: 0.8;
+      }
+      94% {
+        text-shadow: 2px 0 var(--cyan), -2px 0 var(--pink);
+        opacity: 1;
+      }
+      95% {
+        text-shadow: var(--pink-glow);
+        opacity: 0.9;
+      }
     }
 
-    @keyframes pulse-heart {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.2); opacity: 0.8; }
+    @media (max-width: 900px) {
+      .hero-character {
+        display: none;
+      }
     }
 
-    .hero-text {
-      text-align: center;
-      max-width: 600px;
+    .hero-tag {
+      font-size: 0.9rem;
+      color: var(--cyan);
+      letter-spacing: 3px;
+      margin-bottom: 10px;
+      text-shadow: var(--cyan-glow);
+    }
+
+    .hero-tag::before {
+      content: '[ ';
+    }
+
+    .hero-tag::after {
+      content: ' ]';
     }
 
     .hero-title {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      color: var(--cyan);
-      text-shadow: 0 0 10px var(--cyan), 0 0 20px var(--cyan), 0 0 30px var(--cyan);
-      margin-bottom: 15px;
-      animation: glitch-title 5s infinite;
-    }
-
-    .hero-title span {
-      color: var(--pink);
-    }
-
-    @keyframes glitch-title {
-      0%, 90%, 100% { transform: translate(0); filter: none; }
-      91% { transform: translate(-2px, 1px); filter: hue-rotate(90deg); }
-      92% { transform: translate(2px, -1px); filter: hue-rotate(-90deg); }
-      93% { transform: translate(0); filter: none; }
-    }
-
-    .hero-subtitle {
-      font-size: 1.3rem;
-      color: var(--green);
-      margin-bottom: 25px;
-      text-shadow: 0 0 5px var(--green);
-    }
-
-    .hero-info {
-      font-size: 1.1rem;
-      color: #666;
-      border: 1px dashed var(--pink-dim);
-      padding: 15px 25px;
-      display: inline-block;
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 900;
+      line-height: 1.1;
       margin-bottom: 20px;
     }
 
-    .hero-info span {
+    .hero-title .name {
       color: var(--pink);
-    }
-
-    .status-line {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      font-size: 1rem;
-      margin-bottom: 30px;
-    }
-
-    .status-line .online {
-      color: var(--green);
-      animation: blink 1s infinite;
-    }
-
-    @keyframes blink {
-      0%, 50% { opacity: 1; }
-      51%, 100% { opacity: 0.3; }
-    }
-
-    .scroll-hint {
-      position: absolute;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: var(--pink);
-      font-size: 1rem;
-      animation: bounce 2s infinite;
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(10px); }
-    }
-
-    /* Section Styling */
-    .section {
-      padding: 80px 20px;
-      max-width: 1000px;
-      margin: 0 auto;
+      text-shadow: var(--pink-glow);
+      display: block;
       position: relative;
     }
 
-    .section-header {
-      margin-bottom: 40px;
-      border-bottom: 2px solid var(--pink-dim);
-      padding-bottom: 15px;
-    }
-
-    .section-title {
-      font-size: 2rem;
-      color: var(--pink);
-      text-shadow: 0 0 10px var(--pink);
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .section-title::before {
-      content: '>';
-      color: var(--green);
-      animation: blink 1s infinite;
-    }
-
-    .section-title::after {
-      content: '_';
-      color: var(--cyan);
-      animation: blink 0.7s infinite;
-    }
-
-    /* Skills - Terminal Style */
-    .terminal-block {
-      background: rgba(0, 0, 0, 0.8);
-      border: 1px solid var(--green-dim);
-      padding: 20px;
-      font-family: 'Share Tech Mono', monospace;
-      position: relative;
-    }
-
-    .terminal-block::before {
-      content: '┌─ SKILLS.EXE';
+    .hero-title .name::after {
+      content: '0xA';
       position: absolute;
-      top: -12px;
-      left: 10px;
-      background: var(--black);
-      padding: 0 10px;
-      color: var(--pink);
-      font-size: 0.9rem;
+      font-size: 0.3em;
+      color: var(--cyan);
+      text-shadow: var(--cyan-glow);
+      top: -5px;
+      right: 0;
     }
 
-    .terminal-block::after {
-      content: '└────────────────────────────────────────────────────────';
-      position: absolute;
-      bottom: -12px;
-      left: 10px;
-      background: var(--black);
-      padding: 0 10px;
-      color: var(--pink);
-      font-size: 0.9rem;
-    }
-
-    .cmd-line {
-      margin-bottom: 12px;
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-    }
-
-    .cmd-prompt {
+    .hero-title .subtitle {
       color: var(--green);
-      flex-shrink: 0;
-    }
-
-    .cmd-text {
-      color: var(--cyan);
-    }
-
-    .cmd-output {
-      color: #888;
-      padding-left: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .cmd-output .tag {
-      background: var(--green-dim);
-      border: 1px solid var(--green);
-      padding: 3px 10px;
-      font-size: 0.9rem;
-      color: var(--green);
-      transition: all 0.2s;
-    }
-
-    .cmd-output .tag:hover {
-      background: var(--green);
-      color: var(--black);
-      cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><text y="15" font-size="16">✧</text></svg>'), auto;
-    }
-
-    .cmd-output .tag.pink {
-      background: var(--pink-dim);
-      border-color: var(--pink);
-      color: var(--pink);
-    }
-
-    .cmd-output .tag.pink:hover {
-      background: var(--pink);
-      color: var(--black);
-    }
-
-    /* Projects - File Listing Style */
-    .file-listing {
-      background: rgba(0, 0, 0, 0.8);
-      border: 1px solid var(--cyan-dim);
-      padding: 20px;
-      font-family: 'Share Tech Mono', monospace;
-      position: relative;
-    }
-
-    .file-listing::before {
-      content: 'C:\\PROJECTS\\MY_STUFF';
-      position: absolute;
-      top: -12px;
-      left: 10px;
-      background: var(--black);
-      padding: 0 10px;
-      color: var(--cyan);
-      font-size: 0.9rem;
-    }
-
-    .file-header {
-      color: #555;
-      margin-bottom: 15px;
-      padding-bottom: 10px;
-      border-bottom: 1px dashed #333;
-    }
-
-    .file-item {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: 15px;
-      padding: 12px 10px;
-      border-bottom: 1px dotted #222;
-      transition: all 0.2s;
-      cursor: pointer;
-    }
-
-    .file-item:hover {
-      background: var(--pink-dim);
-      border-color: var(--pink);
-    }
-
-    .file-icon {
-      color: var(--pink);
-    }
-
-    .file-name {
-      color: var(--cyan);
-      transition: color 0.2s;
-    }
-
-    .file-item:hover .file-name {
-      color: var(--pink);
-      text-shadow: 0 0 5px var(--pink);
-    }
-
-    .file-size {
-      color: #555;
-      font-size: 0.85rem;
-    }
-
-    .file-desc {
-      grid-column: 2 / -1;
-      color: #666;
-      font-size: 0.9rem;
-      margin-top: 5px;
-      display: none;
-    }
-
-    .file-item:hover .file-desc {
+      text-shadow: var(--green-glow);
       display: block;
     }
 
-    .file-tags {
-      grid-column: 2 / -1;
-      display: flex;
-      gap: 8px;
-      margin-top: 8px;
-      flex-wrap: wrap;
-    }
-
-    .file-tag {
-      font-size: 0.8rem;
-      color: var(--green);
-      background: var(--green-dim);
-      padding: 2px 8px;
-    }
-
-    /* About - Diary Style */
-    .diary-container {
-      background: rgba(0, 0, 0, 0.8);
-      border: 1px solid var(--pink-dim);
-      padding: 30px;
-      font-family: 'Share Tech Mono', monospace;
+    .hero-title .glitch-text {
       position: relative;
-      max-width: 700px;
+      display: inline-block;
+    }
+
+    .hero-title .glitch-text::before,
+    .hero-title .glitch-text::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero-title .glitch-text::before {
+      color: var(--cyan);
+      animation: glitch-1 2s infinite;
+      clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    }
+
+    .hero-title .glitch-text::after {
+      color: var(--pink);
+      animation: glitch-2 2s infinite;
+      clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+    }
+
+    @keyframes glitch-1 {
+      0%, 100% { transform: translate(0); }
+      20% { transform: translate(-3px, 2px); }
+      40% { transform: translate(3px, -2px); }
+      60% { transform: translate(-2px, 1px); }
+      80% { transform: translate(2px, -1px); }
+    }
+
+    @keyframes glitch-2 {
+      0%, 100% { transform: translate(0); }
+      20% { transform: translate(3px, -2px); }
+      40% { transform: translate(-3px, 2px); }
+      60% { transform: translate(2px, -1px); }
+      80% { transform: translate(-2px, 1px); }
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 30px;
+      font-size: 0.85rem;
+    }
+
+    .meta-item {
+      padding: 8px 16px;
+      border: 1px solid;
+      background: var(--bg-light);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .meta-item.age {
+      color: var(--pink);
+      border-color: var(--pink);
+    }
+
+    .meta-item.alignment {
+      color: var(--cyan);
+      border-color: var(--cyan);
+    }
+
+    .meta-item.level {
+      color: var(--green);
+      border-color: var(--green);
+    }
+
+    .meta-item .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+
+    .meta-item.age .dot { background: var(--pink); }
+    .meta-item.alignment .dot { background: var(--cyan); }
+    .meta-item.level .dot { background: var(--green); }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+    }
+
+    .section {
+      padding: 80px 40px;
+      max-width: 1200px;
       margin: 0 auto;
     }
 
-    .diary-header {
-      text-align: center;
-      margin-bottom: 25px;
-      padding-bottom: 15px;
-      border-bottom: 1px dashed var(--pink-dim);
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--pink);
+      text-shadow: var(--pink-glow);
+      letter-spacing: 2px;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--pink), transparent);
+    }
+
+    .console-container {
+      background: var(--bg-light);
+      border: 1px solid var(--green);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 30px rgba(0, 255, 65, 0.1);
+    }
+
+    .console-header {
+      background: linear-gradient(90deg, var(--green), var(--cyan));
+      padding: 10px 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .console-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .console-dot.red { background: #ff5f56; }
+    .console-dot.yellow { background: #ffbd2e; }
+    .console-dot.green { background: #27ca40; }
+
+    .console-title {
+      margin-left: 10px;
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .console-body {
+      padding: 20px;
+      min-height: 300px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .console-output {
+      margin-bottom: 10px;
+    }
+
+    .console-line {
+      margin-bottom: 5px;
+      line-height: 1.6;
+      font-size: 0.9rem;
+    }
+
+    .console-line.command {
+      color: var(--cyan);
+    }
+
+    .console-line.command::before {
+      content: 'root@asuna:~$ ';
+      color: var(--pink);
+    }
+
+    .console-line.response {
+      color: var(--green);
+      padding-left: 15px;
+      white-space: pre-wrap;
+    }
+
+    .console-line.error {
+      color: var(--pink);
+      padding-left: 15px;
+    }
+
+    .console-line.info {
+      color: var(--cyan);
+      padding-left: 15px;
+    }
+
+    .console-input-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(0, 255, 65, 0.2);
+    }
+
+    .console-prompt {
+      color: var(--pink);
+      font-weight: 700;
+    }
+
+    .console-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--cyan);
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      caret-color: var(--green);
+    }
+
+    .console-hint {
+      color: #666;
+      font-size: 0.75rem;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 20px;
+    }
+
+    .skill-category {
+      background: var(--bg-light);
+      border: 1px solid var(--cyan);
+      padding: 25px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .skill-category::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--cyan);
+    }
+
+    .skill-category:hover {
+      border-color: var(--pink);
+      box-shadow: 0 0 30px rgba(255, 110, 199, 0.2);
+      transform: translateX(5px);
+    }
+
+    .skill-category:hover::before {
+      background: var(--pink);
+    }
+
+    .skill-category-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem;
+      color: var(--cyan);
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .skill-category-title .icon {
+      font-size: 1.2rem;
+    }
+
+    .skill-item {
+      margin-bottom: 15px;
+    }
+
+    .skill-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .skill-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-size: 0.85rem;
+    }
+
+    .skill-name {
+      color: var(--green);
+    }
+
+    .skill-percent {
+      color: var(--pink);
+    }
+
+    .skill-bar {
+      height: 6px;
+      background: var(--bg);
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--green), var(--cyan));
+      box-shadow: var(--green-glow);
+      width: 0%;
+      transition: width 1.5s ease-out;
+      position: relative;
+    }
+
+    .skill-bar-fill::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 10px;
+      height: 100%;
+      background: var(--pink);
+      box-shadow: var(--pink-glow);
+      animation: skill-glow 1s infinite;
+    }
+
+    @keyframes skill-glow {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .skill-bar-fill.animated {
+      width: var(--skill-level);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .project-card {
+      background: var(--bg-light);
+      border: 1px solid var(--pink);
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--pink-glow), var(--cyan-glow));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 0;
+    }
+
+    .project-card:hover::before {
+      opacity: 0.1;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 40px rgba(255, 110, 199, 0.3);
+    }
+
+    .project-card:hover .project-header {
+      background: var(--pink);
+      color: var(--bg);
+    }
+
+    .project-card:hover .project-status {
+      background: var(--bg);
+      color: var(--green);
+    }
+
+    .project-header {
+      background: var(--bg);
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .project-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      color: var(--cyan);
+      text-shadow: var(--cyan-glow);
+    }
+
+    .project-status {
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      border: 1px solid;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+    }
+
+    .project-status.active {
+      color: var(--green);
+      border-color: var(--green);
+    }
+
+    .project-status.sleep {
+      color: var(--pink);
+      border-color: var(--pink);
+    }
+
+    .project-body {
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .project-desc {
+      color: #aaa;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .project-tag {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      background: rgba(0, 255, 65, 0.1);
+      border: 1px solid var(--green);
+      color: var(--green);
+    }
+
+    .project-glitch {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      font-size: 3rem;
+      opacity: 0.05;
+      color: var(--pink);
+      transition: opacity 0.3s ease;
+    }
+
+    .project-card:hover .project-glitch {
+      opacity: 0.15;
+      animation: glitch-float 0.5s infinite;
+    }
+
+    @keyframes glitch-float {
+      0%, 100% { transform: translate(0) rotate(0deg); }
+      25% { transform: translate(-2px, 2px) rotate(-2deg); }
+      50% { transform: translate(2px, -2px) rotate(2deg); }
+      75% { transform: translate(-2px, -2px) rotate(-1deg); }
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .about-card {
+      background: var(--bg-light);
+      border: 1px solid var(--cyan);
+      padding: 30px;
+      position: relative;
+    }
+
+    .about-card::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 20px;
+      right: 20px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+    }
+
+    .diary-card {
+      border-color: var(--pink);
+    }
+
+    .diary-card::before {
+      background: linear-gradient(90deg, transparent, var(--pink), transparent);
+    }
+
+    .diary-entry {
+      margin-bottom: 20px;
     }
 
     .diary-date {
       color: var(--pink);
-      font-size: 0.9rem;
-      margin-bottom: 5px;
-    }
-
-    .diary-weather {
-      color: var(--cyan);
-      font-size: 1.1rem;
-    }
-
-    .diary-entry {
-      color: var(--green);
-      line-height: 1.8;
-      font-size: 1.1rem;
-    }
-
-    .diary-entry p {
+      font-style: italic;
       margin-bottom: 15px;
-      text-indent: 20px;
-    }
-
-    .diary-entry .signature {
-      text-align: right;
-      color: var(--pink);
-      margin-top: 20px;
-    }
-
-    .diary-doodles {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      color: var(--pink);
-      opacity: 0.3;
-      font-size: 1.5rem;
-      transform: rotate(15deg);
-    }
-
-    /* Contact - /msg Style */
-    .msg-container {
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .msg-window {
-      background: rgba(0, 0, 0, 0.8);
-      border: 2px solid var(--cyan);
-      padding: 20px;
-      position: relative;
-    }
-
-    .msg-header {
-      color: var(--cyan);
-      margin-bottom: 20px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--cyan-dim);
-      font-size: 1.1rem;
-    }
-
-    .msg-header span {
-      color: var(--pink);
-    }
-
-    .msg-item {
-      margin-bottom: 20px;
-      padding: 15px;
-      background: var(--cyan-dim);
-      border-left: 3px solid var(--cyan);
-      transition: all 0.2s;
-    }
-
-    .msg-item:hover {
-      background: var(--pink-dim);
-      border-color: var(--pink);
-      transform: translateX(5px);
-    }
-
-    .msg-cmd {
-      color: var(--green);
-      font-size: 1rem;
-      margin-bottom: 8px;
-    }
-
-    .msg-cmd::before {
-      content: '/msg ';
-      color: var(--cyan);
-    }
-
-    .msg-info {
-      color: #888;
       font-size: 0.95rem;
     }
 
-    .msg-link {
+    .diary-entry p {
+      color: #b8d4b8;
+      line-height: 1.9;
+      margin-bottom: 12px;
+      font-size: 0.88rem;
+    }
+
+    .diary-signature {
+      color: var(--cyan);
+      text-align: right;
+      font-style: italic;
+      margin-top: 15px;
+      font-size: 0.85rem;
+    }
+
+    .about-card-title {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--cyan);
+      font-size: 1rem;
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+    }
+
+    .about-text {
+      color: var(--green);
+      line-height: 1.8;
+      font-size: 0.9rem;
+    }
+
+    .about-text p {
+      margin-bottom: 15px;
+    }
+
+    .about-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 15px;
+      background: var(--bg);
+      border: 1px solid rgba(0, 255, 255, 0.3);
+    }
+
+    .stat-value {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
       color: var(--pink);
-      text-decoration: none;
-      transition: all 0.2s;
-      display: inline-flex;
+      text-shadow: var(--pink-glow);
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: #666;
+      margin-top: 5px;
+      letter-spacing: 1px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .contact-card {
+      background: var(--bg-light);
+      border: 1px solid var(--green);
+      padding: 25px;
+      display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 15px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
     }
 
-    .msg-link:hover {
-      text-shadow: 0 0 10px var(--pink);
+    .contact-card:hover {
+      border-color: var(--pink);
+      background: rgba(255, 110, 199, 0.1);
+      transform: translateX(10px);
+      box-shadow: 0 0 30px rgba(255, 110, 199, 0.2);
     }
 
-    .msg-arrow {
-      opacity: 0;
-      transform: translateX(-10px);
-      transition: all 0.2s;
+    .contact-icon {
+      font-size: 2rem;
+      color: var(--cyan);
     }
 
-    .msg-item:hover .msg-arrow {
-      opacity: 1;
-      transform: translateX(0);
+    .contact-info h3 {
+      color: var(--green);
+      font-size: 1rem;
+      margin-bottom: 5px;
     }
 
-    /* Footer */
+    .contact-info p {
+      color: #666;
+      font-size: 0.85rem;
+    }
+
     .footer {
       text-align: center;
-      padding: 40px 20px;
-      border-top: 1px solid var(--pink-dim);
+      padding: 60px 40px;
+      border-top: 1px solid rgba(255, 110, 199, 0.2);
       margin-top: 60px;
     }
 
     .footer-ascii {
-      font-family: 'Share Tech Mono', monospace;
+      font-family: 'JetBrains Mono', monospace;
       color: var(--pink);
       font-size: 0.7rem;
       line-height: 1.2;
       white-space: pre;
       margin-bottom: 20px;
-      text-shadow: 0 0 5px var(--pink);
-      opacity: 0.7;
+      text-shadow: var(--pink-glow);
+      opacity: 0.6;
     }
 
     .footer-text {
-      color: #555;
-      font-size: 0.95rem;
+      color: #666;
+      font-size: 0.85rem;
     }
 
     .footer-text span {
       color: var(--green);
     }
 
-    .footer-hearts {
-      margin-top: 15px;
-      color: var(--pink);
-      animation: pulse-heart 1s ease-in-out infinite;
-    }
-
-    /* Random Glitch Decorations */
-    .glitch-deco {
-      position: fixed;
-      font-family: 'Share Tech Mono', monospace;
-      color: var(--pink);
-      opacity: 0.1;
-      font-size: 2rem;
-      pointer-events: none;
-      z-index: -1;
-      animation: glitch-float 20s linear infinite;
-    }
-
-    .glitch-deco:nth-child(1) { left: 5%; top: 20%; animation-delay: 0s; }
-    .glitch-deco:nth-child(2) { left: 90%; top: 40%; animation-delay: -5s; color: var(--cyan); }
-    .glitch-deco:nth-child(3) { left: 15%; top: 70%; animation-delay: -10s; color: var(--green); }
-    .glitch-deco:nth-child(4) { left: 85%; top: 80%; animation-delay: -15s; }
-
-    @keyframes glitch-float {
-      0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.1; }
-      50% { transform: translateY(-30px) rotate(5deg); opacity: 0.2; }
-    }
-
-    /* Responsive */
     @media (max-width: 768px) {
       .nav {
         flex-direction: column;
-        gap: 10px;
+        gap: 15px;
         padding: 15px;
       }
 
@@ -784,551 +1023,960 @@
         justify-content: center;
       }
 
-      .ascii-art {
-        font-size: 4px;
-      }
-
-      .hero-title {
-        font-size: 1.8rem;
-      }
-
       .section {
-        padding: 60px 15px;
+        padding: 60px 20px;
       }
 
-      .file-item {
-        grid-template-columns: auto 1fr;
+      .hero {
+        padding: 80px 20px 40px;
       }
 
-      .file-size {
-        display: none;
+      .hero-meta {
+        flex-direction: column;
       }
-    }
 
-    /* Random ambient effects */
-    @keyframes random-glitch {
-      0%, 100% { transform: translate(0); }
-      10% { transform: translate(-1px, 1px); }
-      20% { transform: translate(1px, -1px); }
-      30% { transform: translate(-1px, -1px); }
-      40% { transform: translate(1px, 1px); }
-      50% { transform: translate(0); }
-    }
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
 
-    .random-glitch {
-      animation: random-glitch 0.1s infinite;
-      animation-play-state: paused;
-    }
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
 
-    .random-glitch:hover {
-      animation-play-state: running;
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .console-body {
+        min-height: 250px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="crt-container">
-    <!-- Matrix Rain Background -->
-    <canvas id="matrix-bg"></canvas>
-    
-    <!-- Glitch Flash Overlay -->
-    <div class="glitch-overlay" id="glitch-overlay"></div>
+  <canvas id="particles-canvas"></canvas>
+  <canvas id="mouse-trail-canvas" class="mouse-trail-canvas"></canvas>
+  <div class="crt-overlay"></div>
+  <div class="glitch-overlay" id="glitch-overlay"></div>
 
-    <!-- Random Glitch Decorations -->
-    <div class="glitch-deco">死</div>
-    <div class="glitch-deco">☆</div>
-    <div class="glitch-deco">KYUTE</div>
-    <div class="glitch-deco">♥</div>
+  <div class="boot-screen" id="boot-screen">
+    <div class="boot-line" data-delay="0"><span class="label">BIOS</span> v4.2.1 ... initializing</div>
+    <div class="boot-line" data-delay="200"><span class="label">CPU</span> Intel i9 @ 5.2GHz <span class="ok">[OK]</span></div>
+    <div class="boot-line" data-delay="400"><span class="label">MEM</span> Checking 32GB DDR5...</div>
+    <div class="boot-line" data-delay="600"><span class="label">MEM</span> 32768MB <span class="ok">[OK]</span></div>
+    <div class="boot-line" data-delay="800"><span class="label">NET</span> eth0: Realtek RTL8125 <span class="ok">[OK]</span></div>
+    <div class="boot-line" data-delay="1000"><span class="label">NET</span> wlan0: Intel AX211 Wi-Fi 6E <span class="ok">[OK]</span></div>
+    <div class="boot-line" data-delay="1200"><span class="label">SEC</span> Initializing encryption modules...</div>
+    <div class="boot-line" data-delay="1400"><span class="label">SEC</span> TOR routing enabled <span class="ok">[OK]</span></div>
+    <div class="boot-line" data-delay="1600"><span class="label">SEC</span> VPN tunnel established <span class="ok">[OK]</span></div>
+    <div class="boot-line" data-delay="1800"><span class="label">SYS</span> Loading kernel modules...</div>
+    <div class="boot-line" data-delay="2000"><span class="label">SYS</span> Mounting encrypted volumes...</div>
+    <div class="boot-line" data-delay="2200"><span class="label">SYS</span> /dev/sda1 (root) <span class="ok">[OK]</span></div>
+    <div class="boot-line" data-delay="2400"><span class="label">SYS</span> /dev/sdb1 (secure) <span class="ok">[OK]</span></div>
+    <div class="boot-line" data-delay="2600"><span class="label">SYS</span> /dev/sdc1 (encrypted) <span class="ok">[OK]</span></div>
+    <div class="boot-line" data-delay="2800"><span class="label">USR</span> Loading user profile: <span class="value">asuna</span></div>
+    <div class="boot-line" data-delay="3000"><span class="label">USR</span> Clearance level: <span class="warn">GHOST_TIER</span></div>
+    <div class="boot-line" data-delay="3200"><span class="label">USR</span> Alignment: <span class="value">CHAOTIC_GOOD</span></div>
+    <div class="boot-line" data-delay="3400"><span class="label">NET</span> Spoofing MAC address...</div>
+    <div class="boot-line" data-delay="3600"><span class="label">NET</span> MAC: 00:11:22:33:44:55 <span class="ok">[OK]</span></div>
+    <div class="boot-line" data-delay="3800"><span class="label">WELCOME</span> Welcome back, <span class="warn">0xA</span></div>
+    <div class="boot-line" data-delay="4000"><span class="label">LOAD</span> Initializing portfolio...</div>
+    <div class="boot-progress">
+      <div class="boot-progress-bar" id="boot-progress-bar"></div>
+    </div>
+  </div>
 
-    <!-- Navigation -->
+  <div class="main-content" id="main-content">
     <nav class="nav">
-      <div class="logo">☆asuna.exe☆</div>
+      <div class="logo">asuna.exe</div>
       <div class="nav-links">
-        <a href="#hero">[home]</a>
-        <a href="#skills">[skills]</a>
-        <a href="#projects">[projects]</a>
-        <a href="#about">[diary]</a>
-        <a href="#contact">[msg]</a>
+        <a href="#home">home</a>
+        <a href="#console">console</a>
+        <a href="#skills">skills</a>
+        <a href="#projects">projects</a>
+        <a href="#contact">contact</a>
       </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
-      <div class="ascii-art-container">
-        <pre class="ascii-art" id="ascii-girl">
-<span class="hair">    ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</span>
-<span class="hair">  ▄█▀░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▀█▄</span>
-<span class="hair"> █▀</span><span class="face">░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░</span><span class="hair">▀█</span>
-<span class="hair"> █▀</span><span class="face">░░░░░░</span><span class="eyes">◉  ‿  ◉</span><span class="face">░░░░░░░░░░░░░░░░░░░░░░░░░░░</span><span class="hair">▀█</span>
-<span class="hair"> █</span><span class="face">░░░░░░░░░░</span><span class="blush">≋</span><span class="blush">≋</span><span class="face">░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░</span><span class="hair">█</span>
-<span class="hair"> █</span><span class="face">░░░░░░░░░░░░░</span><span class="mouth">︵‿</span><span class="face">░░░░░░░░░░░░░░░░░░░░░░░░░░░░░</span><span class="hair">█</span>
-<span class="hair"> █▄</span><span class="face">░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░</span><span class="hair">▄█</span>
-<span class="hair">  ▀█▄</span><span class="face">░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░</span><span class="hair">▄█▀</span>
-<span class="hair">    ▀▀▀▀▀▀▀▀▀▀▀</span><span class="heart">♥</span><span class="heart">♥</span><span class="heart">♥</span><span class="hair">▀▀▀▀▀▀▀▀▀▀▀</span>
-        </pre>
-      </div>
-
-      <div class="hero-text">
-        <h1 class="hero-title">asuna <span>0xA</span> miyake</h1>
-        <p class="hero-subtitle">~ hackergirl's digital shrine ~</p>
-        <div class="hero-info">
-          <span>></span> 17yo | chaotic_good | pink_hair_dont_care | <span>♡</span> systems
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <div class="hero-container">
+          <div class="hero-text">
+            <p class="hero-tag">GHOST_TIER_HACKER // 0xA</p>
+            <h1 class="hero-title">
+              <span class="name glitch-text" data-text="ASUNA">ASUNA</span>
+              <span class="subtitle">&lt;/security_expert&gt;</span>
+            </h1>
+            <div class="hero-meta">
+              <div class="meta-item age">
+                <span class="dot"></span>
+                <span>17 years old</span>
+              </div>
+              <div class="meta-item alignment">
+                <span class="dot"></span>
+                <span>Chaotic Good</span>
+              </div>
+              <div class="meta-item level">
+                <span class="dot"></span>
+                <span>LEVEL: GHOST</span>
+              </div>
+            </div>
+          </div>
+          <div class="hero-character">
+            <pre class="ascii-character">
+    ████████████
+  ██░░░░░░░░░░░██
+ █░░███████████░░█
+█░░██▓▓▓▓▓▓▓▓██░░█
+█░░██▓▓▓▓▓▓▓▓██░░█
+█░░██▓▓████▓▓██░░█
+█░░██▓▓████▓▓██░░█
+█░░░░░░████░░░░░░█
+█░░░░░░░░░░░░░░░░█
+ █░░░░░░░░░░░░░░░█
+  █░░█████████░░██
+  ██░░░░░░░░░░░██
+    ████████████
+   ████████████
+  ████▓▓▓▓████
+ ██▓▓▓▓▓▓▓▓▓▓▓▓██
+██▓▓▓▓▓▓▓▓▓▓▓▓▓▓██
+██▓▓▓▓▓▓▓▓▓▓▓▓▓▓██
+ ██▓▓▓▓▓▓▓▓▓▓▓▓██
+  ██▓▓▓▓▓▓▓▓▓███
+   ████████████
+      ██████
+      ██  ██
+      ██  ██
+            </pre>
+          </div>
         </div>
-        <div class="status-line">
-          <span class="online">● ONLINE</span>
-          <span>│</span>
-          <span>LEVEL: GHOST</span>
-          <span>│</span>
-          <span>EXP: +∞</span>
-          <span>│</span>
-          <span>BFF: root</span>
-        </div>
-      </div>
-
-      <div class="scroll-hint">
-        ▼ scroll down for more kawaii things ▼
       </div>
     </section>
 
-    <!-- Skills Section -->
+    <section class="section" id="console">
+      <div class="section-header">
+        <h2 class="section-title">interactive_console</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="console-container">
+        <div class="console-header">
+          <div class="console-dot red"></div>
+          <div class="console-dot yellow"></div>
+          <div class="console-dot green"></div>
+          <span class="console-title">asuna@ghost:~/portfolio</span>
+        </div>
+        <div class="console-body" id="console-body">
+          <div class="console-output">
+            <div class="console-line info">Welcome to Asuna's interactive console!</div>
+            <div class="console-line info">Type 'help' for available commands.</div>
+          </div>
+        </div>
+        <div class="console-input-line">
+          <span class="console-prompt">root@asuna:~$</span>
+          <input type="text" class="console-input" id="console-input" placeholder="type a command..." autocomplete="off">
+          <span class="console-hint">[TAB: autocomplete]</span>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="skills">
       <div class="section-header">
-        <h2 class="section-title">skills.exe</h2>
+        <h2 class="section-title">skill_matrix</h2>
+        <div class="section-line"></div>
       </div>
 
-      <div class="terminal-block">
-        <div class="cmd-line">
-          <span class="cmd-prompt">C:\SKILLS></span>
-          <span class="cmd-text">type offensive_security.txt</span>
-        </div>
-        <div class="cmd-output">
-          <span class="tag pink">exploit dev</span>
-          <span class="tag pink">fuzzing</span>
-          <span class="tag pink">ROP chains</span>
-          <span class="tag pink">web vulns</span>
-          <span class="tag pink">binary pwn</span>
-          <span class="tag pink">OSINT</span>
-        </div>
-
-        <div class="cmd-line" style="margin-top: 20px;">
-          <span class="cmd-prompt">C:\SKILLS></span>
-          <span class="cmd-text">type defensive_magic.txt</span>
-        </div>
-        <div class="cmd-output">
-          <span class="tag">IR forensics</span>
-          <span class="tag">threat hunting</span>
-          <span class="tag">malware analysis</span>
-          <span class="tag">log archaeology</span>
-        </div>
-
-        <div class="cmd-line" style="margin-top: 20px;">
-          <span class="cmd-prompt">C:\SKILLS></span>
-          <span class="cmd-text">type systems_whisperer.txt</span>
-        </div>
-        <div class="cmd-output">
-          <span class="tag pink">linux internals</span>
-          <span class="tag pink">kernel land</span>
-          <span class="tag pink">eBPF sorcery</span>
-          <span class="tag pink">networking spells</span>
-        </div>
-
-        <div class="cmd-line" style="margin-top: 20px;">
-          <span class="cmd-prompt">C:\SKILLS></span>
-          <span class="cmd-text">type languages_i_speak.txt</span>
-        </div>
-        <div class="cmd-output">
-          <span class="tag pink">python</span>
-          <span class="tag pink">C</span>
-          <span class="tag pink">x86-64 asm</span>
-          <span class="tag pink">rust</span>
-          <span class="tag pink">go</span>
-          <span class="tag pink">js</span>
+      <div class="skills-grid">
+        <div class="skill-category">
+          <h3 class="skill-category-title"><span class="icon">⚔️</span> OFFENSIVE</h3>
+          <div class="skill-item">
+            <div class="skill-info">
+              <span class="skill-name">Exploit Development</span>
+              <span class="skill-percent">95%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill" style="--skill-level: 95%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info">
+              <span class="skill-name">Web Application Pentesting</span>
+              <span class="skill-percent">92%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill" style="--skill-level: 92%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info">
+              <span class="skill-name">Binary Exploitation</span>
+              <span class="skill-percent">88%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill" style="--skill-level: 88%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info">
+              <span class="skill-name">Fuzzing & Reversing</span>
+              <span class="skill-percent">85%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill" style="--skill-level: 85%"></div>
+            </div>
+          </div>
         </div>
 
-        <div class="cmd-line" style="margin-top: 20px;">
-          <span class="cmd-prompt">C:\SKILLS></span>
-          <span class="cmd-text">type secret_powers.txt</span>
+        <div class="skill-category">
+          <h3 class="skill-category-title"><span class="icon">🛡️</span> DEFENSIVE</h3>
+          <div class="skill-item">
+            <div class="skill-info">
+              <span class="skill-name">Incident Response</span>
+              <span class="skill-percent">90%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill" style="--skill-level: 90%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info">
+              <span class="skill-name">Malware Analysis</span>
+              <span class="skill-percent">87%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill" style="--skill-level: 87%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info">
+              <span class="skill-name">Threat Hunting</span>
+              <span class="skill-percent">85%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill" style="--skill-level: 85%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info">
+              <span class="skill-name">Digital Forensics</span>
+              <span class="skill-percent">82%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill" style="--skill-level: 82%"></div>
+            </div>
+          </div>
         </div>
-        <div class="cmd-output">
-          <span class="tag pink">tea brewing</span>
-          <span class="tag pink">all nighter endurance</span>
-          <span class="tag pink">finding bugs others miss</span>
-          <span class="tag pink">naming projects after ghibli</span>
+
+        <div class="skill-category">
+          <h3 class="skill-category-title"><span class="icon">💻</span> SYSTEMS</h3>
+          <div class="skill-item">
+            <div class="skill-info">
+              <span class="skill-name">Linux Internals</span>
+              <span class="skill-percent">94%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill" style="--skill-level: 94%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info">
+              <span class="skill-name">Kernel Development</span>
+              <span class="skill-percent">80%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill" style="--skill-level: 80%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info">
+              <span class="skill-name">eBPF Programming</span>
+              <span class="skill-percent">78%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill" style="--skill-level: 78%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info">
+              <span class="skill-name">Network Security</span>
+              <span class="skill-percent">91%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill" style="--skill-level: 91%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3 class="skill-category-title"><span class="icon">🔧</span> LANGUAGES</h3>
+          <div class="skill-item">
+            <div class="skill-info">
+              <span class="skill-name">Python</span>
+              <span class="skill-percent">98%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill" style="--skill-level: 98%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info">
+              <span class="skill-name">C / C++</span>
+              <span class="skill-percent">85%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill" style="--skill-level: 85%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info">
+              <span class="skill-name">Rust</span>
+              <span class="skill-percent">75%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill" style="--skill-level: 75%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info">
+              <span class="skill-name">x86-64 Assembly</span>
+              <span class="skill-percent">82%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-bar-fill" style="--skill-level: 82%"></div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Projects Section -->
     <section class="section" id="projects">
       <div class="section-header">
-        <h2 class="section-title">projects.dir</h2>
+        <h2 class="section-title">project_archive</h2>
+        <div class="section-line"></div>
       </div>
 
-      <div class="file-listing">
-        <div class="file-header">
-          Directory of C:\PROJECTS\MY_STUFF
-        </div>
-
-        <div class="file-item">
-          <span class="file-icon">📁</span>
-          <div>
-            <span class="file-name">ghostlint/</span>
-            <p class="file-desc">static + dynamic analyzer. finds what others miss by thinking like the attacker. my precious baby.</p>
-            <div class="file-tags">
-              <span class="file-tag">python</span>
-              <span class="file-tag">C</span>
-              <span class="file-tag">eBPF</span>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-name">ghostlint</span>
+            <span class="project-status active">[ACTIVE]</span>
+          </div>
+          <div class="project-body">
+            <p class="project-desc">Static + dynamic binary analyzer that finds vulnerabilities by thinking like an attacker. My precious child~</p>
+            <div class="project-tags">
+              <span class="project-tag">Python</span>
+              <span class="project-tag">C</span>
+              <span class="project-tag">eBPF</span>
+              <span class="project-tag">LLVM</span>
             </div>
           </div>
-          <span class="file-size">[ACTIVE]</span>
+          <span class="project-glitch">{G}</span>
         </div>
 
-        <div class="file-item">
-          <span class="file-icon">📁</span>
-          <div>
-            <span class="file-name">kintsugi_ids/</span>
-            <p class="file-desc">adaptive intrusion detection that embraces broken signals. learns your network's heartbeat~</p>
-            <div class="file-tags">
-              <span class="file-tag">rust</span>
-              <span class="file-tag">ML</span>
-              <span class="file-tag">suricata</span>
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-name">kintsugi_ids</span>
+            <span class="project-status active">[ACTIVE]</span>
+          </div>
+          <div class="project-body">
+            <p class="project-desc">Adaptive intrusion detection that embraces broken signals. Learns your network's heartbeat~</p>
+            <div class="project-tags">
+              <span class="project-tag">Rust</span>
+              <span class="project-tag">ML</span>
+              <span class="project-tag">Suricata</span>
             </div>
           </div>
-          <span class="file-size">[ACTIVE]</span>
+          <span class="project-glitch">{K}</span>
         </div>
 
-        <div class="file-item">
-          <span class="file-icon">📁</span>
-          <div>
-            <span class="file-name">chihiro/</span>
-            <p class="file-desc">payload lab for low-level training. deterministic, reproducible, merciless. named after the one who found her way through.</p>
-            <div class="file-tags">
-              <span class="file-tag">C</span>
-              <span class="file-tag">asm</span>
-              <span class="file-tag">QEMU</span>
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-name">chihiro</span>
+            <span class="project-status sleep">[SLEEP]</span>
+          </div>
+          <div class="project-body">
+            <p class="project-desc">Deterministic payload lab for low-level training. Named after the one who found her way through.</p>
+            <div class="project-tags">
+              <span class="project-tag">C</span>
+              <span class="project-tag">ASM</span>
+              <span class="project-tag">QEMU</span>
             </div>
           </div>
-          <span class="file-size">[SLEEP]</span>
+          <span class="project-glitch">{C}</span>
         </div>
 
-        <div class="file-item">
-          <span class="file-icon">📁</span>
-          <div>
-            <span class="file-name">tanuki/</span>
-            <p class="file-desc">sticky-notes-and-ASCII-art note system for the terminal. because memory is fallible but ASCII is forever.</p>
-            <div class="file-tags">
-              <span class="file-tag">python</span>
-              <span class="file-tag">ncurses</span>
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-name">tanuki</span>
+            <span class="project-status sleep">[QUIET]</span>
+          </div>
+          <div class="project-body">
+            <p class="project-desc">Sticky-notes-and-ASCII-art note system for the terminal. Memory is fallible but ASCII is forever.</p>
+            <div class="project-tags">
+              <span class="project-tag">Python</span>
+              <span class="project-tag">ncurses</span>
             </div>
           </div>
-          <span class="file-size">[QUIET]</span>
+          <span class="project-glitch">{T}</span>
         </div>
 
-        <div class="file-item">
-          <span class="file-icon">📁</span>
-          <div>
-            <span class="file-name">forgotten_things/</span>
-            <p class="file-desc">secret stuff. if you found this you weren't supposed to~</p>
-            <div class="file-tags">
-              <span class="file-tag">???</span>
-              <span class="file-tag">classified</span>
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-name">phantom</span>
+            <span class="project-status active">[ACTIVE]</span>
+          </div>
+          <div class="project-body">
+            <p class="project-desc">Next-gen obfuscation framework. Makes your code disappear from static analysis while keeping it functional.</p>
+            <div class="project-tags">
+              <span class="project-tag">Rust</span>
+              <span class="project-tag">IR</span>
+              <span class="project-tag">LLVM</span>
             </div>
           </div>
-          <span class="file-size">[CLASSIFIED]</span>
+          <span class="project-glitch">{P}</span>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <span class="project-name">forgotten_things</span>
+            <span class="project-status sleep">[CLASSIFIED]</span>
+          </div>
+          <div class="project-body">
+            <p class="project-desc">Secret stuff. If you found this, you weren't supposed to~</p>
+            <div class="project-tags">
+              <span class="project-tag">???</span>
+              <span class="project-tag">REDACTED</span>
+            </div>
+          </div>
+          <span class="project-glitch">{?}</span>
         </div>
       </div>
     </section>
 
-    <!-- About Section -->
     <section class="section" id="about">
       <div class="section-header">
-        <h2 class="section-title">diary.dat</h2>
+        <h2 class="section-title">about_me</h2>
+        <div class="section-line"></div>
       </div>
 
-      <div class="diary-container">
-        <div class="diary-doodles">☆.。.:*・°☆.。.:*</div>
-        <div class="diary-header">
-          <p class="diary-date">last updated: 2026.03.19 @ 04:12am</p>
-          <p class="diary-weather">☾ rainy | ☕ second pot | 🎧: lo-fi beats to hack to</p>
+      <div class="about-grid">
+        <div class="about-card diary-card">
+          <h3 class="about-card-title">~ personal notes ~</h3>
+          <div class="diary-entry">
+            <div class="diary-date">Dear internet,</div>
+            <p>I'm Asuna, but my friends call me 0xA. You can call me whatever, as long as you don't call me a script kiddie (I worked really hard to earn my skills, okay?)</p>
+            <p>At 17, I've learned that the world runs on code, and most of that code is held together with duct tape and prayers. That's both terrifying and exciting!</p>
+            <p>I started hacking because I wanted to understand how things work. Then I realized most things are designed to be confusing on purpose. Now I make tools to help people protect themselves.</p>
+            <p>When I'm not staring at hex dumps at 3am, you'll find me with a cup of tea ( Earl Grey, bergamot is non-negotiable ), Root the fox sleeping on my keyboard, and probably some lo-fi beats playing.</p>
+            <p>I believe privacy is a right, not a privilege. And no, I won't tell you where I live. Good day~</p>
+            <div class="diary-signature">— Asuna, somewhere safe</div>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-value">3+</div>
+              <div class="stat-label">YEARS SELF-TAUGHT</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">15+</div>
+              <div class="stat-label">VULNS REPORTED</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">∞</div>
+              <div class="stat-label">CURIOSITY</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">1</div>
+              <div class="stat-label">FOX NAMED ROOT</div>
+            </div>
+          </div>
         </div>
-        <div class="diary-entry">
-          <p>
-            hey there~ thanks for visiting my little corner of the internet ♡
-          </p>
-          <p>
-            i'm asuna, but you can call me 0xA. i'm 17 and i break things to understand them, 
-            then make them safer. i think in systems and dream in binaries. the fox on my desk is named root.
-          </p>
-          <p>
-            peak hours are 2am-6am. always tea first. always. 
-            i care about the people who don't know they're being watched, and i build because i want a better internet.
-          </p>
-          <p>
-            the system wasn't broken. it was designed that way. which means someone made a choice. 
-            i just want to know who.
-          </p>
-          <p class="signature">
-            ─── asuna, 4:12am ♥
-          </p>
+
+        <div class="about-card">
+          <h3 class="about-card-title">// PHILOSOPHY</h3>
+          <div class="about-text">
+            <p>I care about the people who don't know they're being watched. The ones who trust systems that were built to exploit them.</p>
+            <p>I build because I want a better internet. One where privacy isn't a luxury and security isn't an afterthought.</p>
+            <p>Self-taught. No certifications. No corporate backing. Just curiosity, stubbornness, and too much caffeine.</p>
+            <p>Chaotic Good means I do what's right, not what's legal. The law protects the powerful. I protect the vulnerable.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Contact Section -->
     <section class="section" id="contact">
       <div class="section-header">
-        <h2 class="section-title">contact.msg</h2>
+        <h2 class="section-title">contact_protocol</h2>
+        <div class="section-line"></div>
       </div>
 
-      <div class="msg-container">
-        <div class="msg-window">
-          <div class="msg-header">
-            NEW MESSAGE WINDOW - <span>asuna.exe</span> [x]
+      <div class="contact-grid">
+        <a href="mailto:hello@asuna0xa.dev" class="contact-card">
+          <span class="contact-icon">📧</span>
+          <div class="contact-info">
+            <h3>Email</h3>
+            <p>hello@asuna0xa.dev</p>
           </div>
+        </a>
 
-          <div class="msg-item">
-            <p class="msg-cmd">send_email</p>
-            <p class="msg-info">
-              want to collab? have an interesting problem? or just want to say hi?<br>
-              <a href="mailto:hello@asuna0xa.dev" class="msg-link">hello@asuna0xa.dev <span class="msg-arrow">→</span></a>
-            </p>
+        <a href="https://github.com/Asuna0xA" target="_blank" class="contact-card">
+          <span class="contact-icon">💻</span>
+          <div class="contact-info">
+            <h3>GitHub</h3>
+            <p>@Asuna0xA</p>
           </div>
+        </a>
 
-          <div class="msg-item">
-            <p class="msg-cmd">check_github</p>
-            <p class="msg-info">
-              where the code lives~<br>
-              <a href="https://github.com/Asuna0xA" target="_blank" class="msg-link">@Asuna0xA <span class="msg-arrow">→</span></a>
-            </p>
+        <a href="#" class="contact-card">
+          <span class="contact-icon">💬</span>
+          <div class="contact-info">
+            <h3>Discord</h3>
+            <p>asuna0xa</p>
           </div>
+        </a>
 
-          <div class="msg-item">
-            <p class="msg-cmd">join_ctf</p>
-            <p class="msg-info">
-              looking for teammates for upcoming CTFs? same wavelength? let's go~<br>
-              <a href="#" class="msg-link">find me on discord <span class="msg-arrow">→</span></a>
-            </p>
+        <a href="#" class="contact-card">
+          <span class="contact-icon">🔒</span>
+          <div class="contact-info">
+            <h3>PGP Key</h3>
+            <p>Request securely</p>
           </div>
-
-          <div class="msg-item">
-            <p class="msg-cmd">random_thoughts</p>
-            <p class="msg-info">
-              sometimes i post screenshots of terminals and ascii art. sometimes it's just vibes.<br>
-              <a href="#" class="msg-link">@asuna0xa everywhere <span class="msg-arrow">→</span></a>
-            </p>
-          </div>
-        </div>
+        </a>
       </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
       <pre class="footer-ascii">
-╔═══════════════════════════════════════════════╗
-║  ☆・。.:*・°☆・。.:*・°☆・。.:*・°☆・。.:*・°☆  ║
-║     made with ♡ and too much caffeine         ║
-║  ☆・。.:*・°☆・。.:*・°☆・。.:*・°☆・。.:*・°☆  ║
-╚═══════════════════════════════════════════════╝
+╔═══════════════════════════════════════════════════╗
+║  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ║
+║  ▓                                           ▓  ║
+║  ▓    > root@asuna: permission_granted      ▓  ║
+║  ▓    > welcome to my digital domain         ▓  ║
+║  ▓    > stay safe out there~                ▓  ║
+║  ▓                                           ▓  ║
+║  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ║
+╚═══════════════════════════════════════════════════╝
       </pre>
-      <p class="footer-text">
-        © 2026 <span>asuna 0xA miyake</span> - built with intent and a sprinkle of magic~
-      </p>
-      <p class="footer-hearts">♥ ♥ ♥</p>
+      <p class="footer-text">© 2026 <span>asuna 0xA</span> // built with intent and a sprinkle of magic</p>
     </footer>
   </div>
 
   <script>
-    // ═══════════════════════════════════════════════
-    // MATRIX RAIN - CYBERPUNK FALLING TEXT
-    // ═══════════════════════════════════════════════
-    const canvas = document.getElementById('matrix-bg');
-    const ctx = canvas.getContext('2d');
+    const COMMANDS = {
+      help: `Available commands:
+  help     - Show this help message
+  whoami   - Display user information
+  skills   - List technical skills
+  projects - List recent projects
+  about    - About this portfolio
+  clear    - Clear console
+  contact  - Contact information
+  sudo     - Try it yourself~
+  exit     - Close connection (jk)`,
+      whoami: `User: asuna
+Handle: 0xA
+Real Name: [REDACTED]
+Age: 17
+Alignment: CHAOTIC_GOOD
+Clearance: GHOST_TIER
+Status: ONLINE
+Location: [ENCRYPTED]
+Last Login: ${new Date().toISOString()}`,
+      skills: `═══ TECHNICAL SKILLS ═══
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+OFFENSIVE SECURITY
+  • Exploit Development     [██████████] 95%
+  • Web App Pentesting      [█████████ ] 92%
+  • Binary Exploitation     [████████░ ] 88%
+  • Fuzzing & Reversing     [████████░ ] 85%
 
-    // Gyaru/hacker text characters
-    const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEF<>/{}[];☆♡♥死狂KYUTE;;';
-    const fontSize = 14;
-    let columns = Math.floor(canvas.width / fontSize);
-    let drops = Array(columns).fill(1);
+DEFENSIVE SECURITY  
+  • Incident Response       [█████████ ] 90%
+  • Malware Analysis        [████████░ ] 87%
+  • Threat Hunting           [████████░ ] 85%
+  • Digital Forensics       [████████  ] 82%
 
-    function drawMatrix() {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      
-      ctx.font = `${fontSize}px "Share Tech Mono", monospace`;
+SYSTEMS
+  • Linux Internals         [█████████ ] 94%
+  • Kernel Development      [████████  ] 80%
+  • eBPF Programming        [███████░  ] 78%
+  • Network Security        [█████████ ] 91%
 
-      for (let i = 0; i < drops.length; i++) {
-        const char = chars[Math.floor(Math.random() * chars.length)];
-        
-        // Color cycling for cyberpunk feel
-        const colors = ['#ff6ec7', '#00ff41', '#00ffff', '#ff69b4'];
-        ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
-        
-        ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+LANGUAGES
+  • Python                  [██████████] 98%
+  • C/C++                   [████████░ ] 85%
+  • Rust                    [███████░  ] 75%
+  • x86-64 Assembly         [████████░ ] 82%`,
+      projects: `═══ PROJECT ARCHIVE ═══
 
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
+[ACTIVE] ghostlint/
+  Static + dynamic binary analyzer
+  Stack: Python, C, eBPF, LLVM
+  
+[ACTIVE] kintsugi_ids/
+  Adaptive intrusion detection system
+  Stack: Rust, ML, Suricata
+  
+[SLEEP]  chihiro/
+  Deterministic payload training lab
+  Stack: C, ASM, QEMU
+  
+[QUIET]  tanuki/
+  Terminal note system with ASCII art
+  Stack: Python, ncurses
+  
+[ACTIVE] phantom/
+  Next-gen code obfuscation framework
+  Stack: Rust, IR, LLVM
+  
+[CLASSIFIED] forgotten_things/
+  Status: ACCESS DENIED`,
+      about: `═══ ABOUT THIS PORTFOLIO ═══
+
+Built with vanilla HTML, CSS, and JavaScript.
+No frameworks. No build tools. Pure code.
+
+Features:
+  • Boot sequence animation
+  • Interactive terminal console
+  • Particle background effects
+  • Glitch visual effects
+  • Cyberpunk neon aesthetic
+  • Responsive design
+  • Animated skill bars
+
+Author: Asuna 0xA
+Last Updated: ${new Date().toLocaleDateString()}`,
+      contact: `═══ CONTACT PROTOCOL ═══
+
+Email:    hello@asuna0xa.dev
+GitHub:   @Asuna0xA
+Discord:  asuna0xa
+PGP:      Request via secure channel
+
+Response Time: Usually within 24h
+Timezone: Somewhere in the future (UTC+9)
+Status: Open to collaborations & CTF teams`,
+      sudo: `root@asuna: Permission Denied
+
+Nice try~ 
+You don't have sudo privileges here.
+
+But I appreciate the enthusiasm!
+Maybe someday you'll earn it...`,
+      exit: `Connection closed.
+
+Just kidding, you can't leave that easily.
+Type 'help' to see available commands.`,
+      clear: '__CLEAR__'
+    };
+
+    const COMMANDS_LIST = Object.keys(COMMANDS);
+
+    class ParticleSystem {
+      constructor() {
+        this.canvas = document.getElementById('particles-canvas');
+        this.ctx = this.canvas.getContext('2d');
+        this.particles = [];
+        this.resize();
+        window.addEventListener('resize', () => this.resize());
+        this.init();
+        this.animate();
+      }
+
+      resize() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+      }
+
+      init() {
+        const particleCount = Math.min(100, Math.floor((this.canvas.width * this.canvas.height) / 15000));
+        for (let i = 0; i < particleCount; i++) {
+          this.particles.push({
+            x: Math.random() * this.canvas.width,
+            y: Math.random() * this.canvas.height,
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.5,
+            size: Math.random() * 2 + 1,
+            color: ['#ff6ec7', '#00ff41', '#00ffff'][Math.floor(Math.random() * 3)],
+            alpha: Math.random() * 0.5 + 0.2
+          });
         }
-        drops[i]++;
+      }
+
+      animate() {
+        this.ctx.fillStyle = 'rgba(10, 10, 15, 0.1)';
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+        this.particles.forEach((p, i) => {
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x < 0) p.x = this.canvas.width;
+          if (p.x > this.canvas.width) p.x = 0;
+          if (p.y < 0) p.y = this.canvas.height;
+          if (p.y > this.canvas.height) p.y = 0;
+
+          this.ctx.beginPath();
+          this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          this.ctx.fillStyle = p.color;
+          this.ctx.globalAlpha = p.alpha;
+          this.ctx.fill();
+          this.ctx.globalAlpha = 1;
+
+          this.particles.slice(i + 1).forEach(p2 => {
+            const dx = p.x - p2.x;
+            const dy = p.y - p2.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < 100) {
+              this.ctx.beginPath();
+              this.ctx.moveTo(p.x, p.y);
+              this.ctx.lineTo(p2.x, p2.y);
+              this.ctx.strokeStyle = p.color;
+              this.ctx.globalAlpha = (100 - dist) / 500;
+              this.ctx.stroke();
+              this.ctx.globalAlpha = 1;
+            }
+          });
+        });
+
+        requestAnimationFrame(() => this.animate());
       }
     }
 
-    setInterval(drawMatrix, 50);
-    window.addEventListener('resize', () => {
-      columns = Math.floor(canvas.width / fontSize);
-      drops = Array(columns).fill(1);
-    });
-
-    // ═══════════════════════════════════════════════
-    // GLITCH EFFECTS
-    // ═══════════════════════════════════════════════
-    const glitchOverlay = document.getElementById('glitch-overlay');
-    
-    // Random glitch flash
-    function randomGlitch() {
-      glitchOverlay.classList.add('active');
-      setTimeout(() => glitchOverlay.classList.remove('active'), 300);
-    }
-
-    // Random glitch every 3-8 seconds
-    function scheduleGlitch() {
-      const delay = 3000 + Math.random() * 5000;
-      setTimeout(() => {
-        randomGlitch();
-        scheduleGlitch();
-      }, delay);
-    }
-    scheduleGlitch();
-
-    // Glitch on mouse movement (subtle)
-    let lastMove = 0;
-    document.addEventListener('mousemove', (e) => {
-      const now = Date.now();
-      if (now - lastMove > 500 && Math.random() > 0.97) {
-        randomGlitch();
-        lastMove = now;
+    class MouseTrail {
+      constructor() {
+        this.canvas = document.getElementById('mouse-trail-canvas');
+        this.ctx = this.canvas.getContext('2d');
+        this.particles = [];
+        this.colors = ['#ff6ec7', '#00ff41', '#00ffff', '#ffffff'];
+        this.resize();
+        window.addEventListener('resize', () => this.resize());
+        this.bindEvents();
+        this.animate();
       }
-    });
 
-    // ═══════════════════════════════════════════════
-    // ASCII ART ANIMATION - BREATHING EFFECT
-    // ═══════════════════════════════════════════════
-    const asciiGirl = document.getElementById('ascii-girl');
-    let breathePhase = 0;
+      resize() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+      }
 
-    function animateAscii() {
-      breathePhase += 0.02;
-      const scale = 1 + Math.sin(breathePhase) * 0.01;
-      const offsetY = Math.sin(breathePhase * 0.7) * 2;
-      asciiGirl.style.transform = `scale(${scale}) translateY(${offsetY}px)`;
+      bindEvents() {
+        document.addEventListener('mousemove', (e) => {
+          for (let i = 0; i < 3; i++) {
+            this.particles.push({
+              x: e.clientX,
+              y: e.clientY,
+              vx: (Math.random() - 0.5) * 3,
+              vy: (Math.random() - 0.5) * 3,
+              size: Math.random() * 4 + 2,
+              color: this.colors[Math.floor(Math.random() * this.colors.length)],
+              life: 1,
+              decay: Math.random() * 0.02 + 0.01
+            });
+          }
+        });
+      }
+
+      animate() {
+        this.ctx.fillStyle = 'rgba(10, 10, 15, 0.15)';
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+        this.particles = this.particles.filter(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vx *= 0.98;
+          p.vy *= 0.98;
+          p.life -= p.decay;
+
+          if (p.life > 0) {
+            this.ctx.beginPath();
+            this.ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+            this.ctx.fillStyle = p.color;
+            this.ctx.globalAlpha = p.life * 0.8;
+            
+            this.ctx.shadowBlur = 15;
+            this.ctx.shadowColor = p.color;
+            
+            this.ctx.fill();
+            
+            this.ctx.shadowBlur = 0;
+            this.ctx.globalAlpha = 1;
+            return true;
+          }
+          return false;
+        });
+
+        requestAnimationFrame(() => this.animate());
+      }
     }
 
-    setInterval(animateAscii, 50);
+    class Console {
+      constructor() {
+        this.body = document.getElementById('console-body');
+        this.input = document.getElementById('console-input');
+        this.history = [];
+        this.historyIndex = -1;
 
-    // ═══════════════════════════════════════════════
-    // BLINK EYES ALTERNATE
-    // ═══════════════════════════════════════════════
-    const eyes = document.querySelectorAll('.eyes');
-    let blinkState = true;
+        this.input.addEventListener('keydown', (e) => this.handleKey(e));
+        this.input.focus();
 
-    setInterval(() => {
-      blinkState = !blinkState;
-      eyes.forEach(eye => {
-        if (blinkState) {
-          eye.style.opacity = '1';
+        document.querySelector('.console-container').addEventListener('click', () => {
+          this.input.focus();
+        });
+      }
+
+      handleKey(e) {
+        if (e.key === 'Enter') {
+          const cmd = this.input.value.trim();
+          if (cmd) {
+            this.history.push(cmd);
+            this.historyIndex = this.history.length;
+            this.executeCommand(cmd);
+          }
+          this.input.value = '';
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (this.historyIndex > 0) {
+            this.historyIndex--;
+            this.input.value = this.history[this.historyIndex];
+          }
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          if (this.historyIndex < this.history.length - 1) {
+            this.historyIndex++;
+            this.input.value = this.history[this.historyIndex];
+          } else {
+            this.historyIndex = this.history.length;
+            this.input.value = '';
+          }
+        } else if (e.key === 'Tab') {
+          e.preventDefault();
+          const partial = this.input.value.toLowerCase();
+          const match = COMMANDS_LIST.find(c => c.startsWith(partial));
+          if (match) {
+            this.input.value = match;
+          }
+        }
+      }
+
+      executeCommand(cmd) {
+        this.print(cmd, 'command');
+
+        const command = cmd.toLowerCase().trim();
+        const output = COMMANDS[command];
+
+        if (output === '__CLEAR__') {
+          this.body.innerHTML = '';
+        } else if (output) {
+          output.split('\n').forEach(line => {
+            if (line.trim()) {
+              this.print(line, 'response');
+            }
+          });
         } else {
-          eye.style.opacity = '0.1';
+          this.print(`Command not found: ${cmd}. Type 'help' for available commands.`, 'error');
         }
-      });
-    }, 3000);
 
-    // ═══════════════════════════════════════════════
-    // SMOOTH SCROLL FOR NAV
-    // ═══════════════════════════════════════════════
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          // Trigger a small glitch on navigation
-          randomGlitch();
-        }
-      });
-    });
-
-    // ═══════════════════════════════════════════════
-    // INTERSECTION OBSERVER FOR SECTION ANIMATIONS
-    // ═══════════════════════════════════════════════
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.section').forEach(section => {
-      section.style.opacity = '0';
-      section.style.transform = 'translateY(30px)';
-      section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-      observer.observe(section);
-    });
-
-    // ═══════════════════════════════════════════════
-    // FILE ITEM EXPAND ON HOVER
-    // ═══════════════════════════════════════════════
-    document.querySelectorAll('.file-item').forEach(item => {
-      item.addEventListener('mouseenter', () => {
-        randomGlitch();
-      });
-    });
-
-    // ═══════════════════════════════════════════════
-    // TERMINAL TYPING SOUND EFFECT (VISUAL ONLY)
-    // ═══════════════════════════════════════════════
-    const terminalBlock = document.querySelector('.terminal-block');
-    if (terminalBlock) {
-      terminalBlock.addEventListener('mouseenter', () => {
-        randomGlitch();
-      });
-    }
-
-    // ═══════════════════════════════════════════════
-    // LOGO GLITCH ON HOVER
-    // ═══════════════════════════════════════════════
-    const logo = document.querySelector('.logo');
-    if (logo) {
-      logo.addEventListener('mouseenter', () => {
-        for (let i = 0; i < 3; i++) {
-          setTimeout(randomGlitch, i * 100);
-        }
-      });
-    }
-
-    // ═══════════════════════════════════════════════
-    // SCROLL GLITCH EFFECT
-    // ═══════════════════════════════════════════════
-    let lastScroll = 0;
-    window.addEventListener('scroll', () => {
-      const currentScroll = window.scrollY;
-      if (Math.abs(currentScroll - lastScroll) > 50 && Math.random() > 0.9) {
-        randomGlitch();
+        this.body.scrollTop = this.body.scrollHeight;
+        triggerGlitch();
       }
-      lastScroll = currentScroll;
-    });
 
-    // ═══════════════════════════════════════════════
-    // INIT
-    // ═══════════════════════════════════════════════
-    console.log('%c ☆ asuna.exe loaded ☆ ', 'background: #ff6ec7; color: #000; font-family: monospace; font-size: 14px; padding: 5px;');
-    console.log('%c welcome to my digital shrine~ ', 'color: #00ff41; font-family: monospace;');
+      print(text, type = 'response') {
+        const line = document.createElement('div');
+        line.className = `console-line ${type}`;
+        line.textContent = text;
+        this.body.appendChild(line);
+        this.body.scrollTop = this.body.scrollHeight;
+      }
+    }
+
+    function triggerGlitch() {
+      const overlay = document.getElementById('glitch-overlay');
+      overlay.classList.add('active');
+      setTimeout(() => overlay.classList.remove('active'), 150);
+    }
+
+    function runBootSequence() {
+      const lines = document.querySelectorAll('.boot-line');
+      const progressBar = document.getElementById('boot-progress-bar');
+      const bootScreen = document.getElementById('boot-screen');
+      const mainContent = document.getElementById('main-content');
+
+      let lineIndex = 0;
+      let progress = 0;
+
+      function showNextLine() {
+        if (lineIndex < lines.length) {
+          lines[lineIndex].classList.add('visible');
+          lineIndex++;
+          progress = (lineIndex / lines.length) * 100;
+          progressBar.style.width = progress + '%';
+
+          const delay = lineIndex < lines.length - 2 ? 100 + Math.random() * 200 : 300;
+          setTimeout(showNextLine, delay);
+        } else {
+          setTimeout(() => {
+            bootScreen.classList.add('hidden');
+            mainContent.classList.add('visible');
+            initSkillAnimations();
+          }, 800);
+        }
+      }
+
+      showNextLine();
+    }
+
+    function initSkillAnimations() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const bars = entry.target.querySelectorAll('.skill-bar-fill');
+            bars.forEach(bar => {
+              bar.classList.add('animated');
+            });
+          }
+        });
+      }, { threshold: 0.3 });
+
+      document.querySelectorAll('.skill-category').forEach(cat => {
+        observer.observe(cat);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      new ParticleSystem();
+      new MouseTrail();
+      const consoleInstance = new Console();
+
+      runBootSequence();
+
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      });
+
+      let lastMove = 0;
+      document.addEventListener('mousemove', (e) => {
+        const now = Date.now();
+        if (now - lastMove > 2000 && Math.random() > 0.998) {
+          triggerGlitch();
+          lastMove = now;
+        }
+      });
+
+      setInterval(() => {
+        if (Math.random() > 0.97) {
+          triggerGlitch();
+        }
+      }, 5000);
+    });
   </script>
 </body>
 </html>
